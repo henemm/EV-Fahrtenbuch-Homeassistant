@@ -325,6 +325,143 @@ Reference: Global CLAUDE.md "Analysis-First Prinzip"
 
 **Lesson:** Stick to Analysis-First principle. Never remove features without user approval, even under time pressure.
 
+### Dynamic Island Best Practices
+
+**Critical for ActivityKit/LiveActivity development.**
+
+**The Rules:**
+```
+✅ DO: Define ALL three compact regions (compactLeading, compactTrailing, minimal)
+✅ DO: Use .bottom region for main content in expanded view
+✅ DO: Set fixed width for compactTrailing text (e.g., Timer)
+✅ DO: Apply contentMargins for all modes
+✅ DO: Keep compact regions minimal (small icons, short text)
+❌ DON'T: Leave any compact region undefined (causes full-width Island)
+❌ DON'T: Put all content in .leading/.trailing (use .bottom instead)
+```
+
+**Compact View Width Control:**
+- Fixed width required for text content (e.g., `Text(...).frame(width: 55)`)
+- Apply `.contentMargins()` for each mode:
+  ```swift
+  .contentMargins([.leading, .top, .bottom], 4, for: .compactLeading)
+  .contentMargins([.trailing, .top, .bottom], 4, for: .compactTrailing)
+  .contentMargins(.all, 4, for: .minimal)
+  ```
+
+**Expanded View Layout:**
+- Use `.bottom` region for primary content (largest area)
+- `.leading` and `.trailing` only for small accent elements
+- Keep content left-aligned: `VStack(alignment: .leading)`
+- Use `frame(maxWidth: .infinity, alignment: .leading)` for proper spacing
+
+**Official Reference:**
+- Apple's Food Truck Sample: https://github.com/apple/sample-food-truck
+- WWDC23: "Design dynamic Live Activities"
+
+**Lesson from Session:**
+- Researched thoroughly before implementing
+- Found official Apple sample code
+- Avoided trial-and-error by following documented patterns
+
+### Double-Check Code Changes Before Committing
+
+**Problem:** Code changes in second iteration can introduce new bugs or remove critical functionality.
+
+**The Rule:**
+```
+❌ DON'T: Blindly copy-paste modified code without reviewing changes
+✅ DO: Compare new code line-by-line with previous version
+✅ DO: Verify ALL critical functionality is preserved
+✅ DO: Test immediately after making changes
+```
+
+**Real Example from Session:**
+```swift
+// First version: ✅ Symbol was white
+symbolImage.lockFocus()
+NSColor.white.set()
+// ... code to color symbol white ...
+symbolImage.unlockFocus()
+
+// Second version: ❌ Forgot to color symbol - became black
+// Missing white coloring code → wasted user's money
+```
+
+**Why this matters:**
+- User pays for AI time - mistakes cost real money
+- Simple oversights (like forgetting one code block) can ruin output
+- Always verify that improvements don't remove existing functionality
+
+**Prevention:**
+1. Read both old and new code carefully
+2. Make a mental checklist of critical features
+3. Verify each feature is still present in new code
+4. Test immediately after implementation
+
+### Research Official Examples First
+
+**When implementing complex iOS features (LiveActivities, Widgets, etc.):**
+
+**The Process:**
+1. ✅ Search for official Apple documentation
+2. ✅ Look for WWDC sessions on the topic
+3. ✅ Find Apple sample projects (github.com/apple)
+4. ✅ Study real working examples before coding
+5. ❌ Don't start with trial-and-error
+
+**Why this works:**
+- Official examples show correct patterns
+- Avoids wasting time on wrong approaches
+- Apple's code is the authoritative source
+
+**Example from Session:**
+- Searched for "Dynamic Island best practices"
+- Found Apple's Food Truck sample project
+- Copied proven patterns (contentMargins, region structure)
+- Implementation worked first try after research
+
+### TestFlight Archive Process
+
+**Commands that work:**
+```bash
+# 1. Create archive
+xcodebuild archive \
+  -scheme "HomeAssistentFahrtenbuch" \
+  -configuration Release \
+  -sdk iphoneos \
+  -archivePath "./build/HomeAssistentFahrtenbuch.xcarchive" \
+  CODE_SIGN_STYLE=Automatic \
+  DEVELOPMENT_TEAM=XK87E2B3VR
+
+# 2. Export requires Distribution Profile
+# → Better to let user export via Xcode Organizer
+#   (Window → Organizer → Distribute App)
+```
+
+**Version Management:**
+```bash
+# Update marketing version
+agvtool new-marketing-version 1.0.1
+
+# Increment build number
+agvtool next-version -all
+
+# Verify in project.pbxproj
+grep "MARKETING_VERSION\|CURRENT_PROJECT_VERSION" HomeAssistentFahrtenbuch.xcodeproj/project.pbxproj
+```
+
+**Git Tagging:**
+```bash
+git tag -a v1.0.1 -m "Release v1.0.1 - Description"
+git push --tags
+```
+
+**Lesson:**
+- Archive creation via xcodebuild works well
+- Export to App Store needs proper provisioning profiles
+- Let user handle export in Xcode (simpler, more reliable)
+
 ---
 
 **For global collaboration rules and workflow, see `~/.claude/CLAUDE.md`**
