@@ -13,7 +13,7 @@ struct ActiveTripView: View {
     @ObservedObject var trip: Trip
     @ObservedObject var viewModel: TripsViewModel
 
-    @State private var currentTime = Date()
+    @State private var durationSeconds: TimeInterval = 0
 
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
@@ -53,7 +53,7 @@ struct ActiveTripView: View {
                         InfoRow(
                             icon: "timer",
                             label: "Dauer",
-                            value: formatDuration(trip.durationMinutes)
+                            value: formatDuration(durationSeconds)
                         )
 
                         Divider()
@@ -121,22 +121,34 @@ struct ActiveTripView: View {
                     }
                 }
             }
+            .onAppear {
+                updateDuration()
+            }
             .onReceive(timer) { _ in
-                currentTime = Date()
+                updateDuration()
             }
         }
     }
 
     // MARK: - Helpers
 
-    private func formatDuration(_ minutes: Int) -> String {
-        let hours = minutes / 60
-        let mins = minutes % 60
+    private func updateDuration() {
+        guard let startDate = trip.startDate else { return }
+        durationSeconds = Date().timeIntervalSince(startDate)
+    }
+
+    private func formatDuration(_ seconds: TimeInterval) -> String {
+        let totalMinutes = Int(seconds) / 60
+        let secs = Int(seconds) % 60
+        let hours = totalMinutes / 60
+        let mins = totalMinutes % 60
 
         if hours > 0 {
-            return "\(hours)h \(mins)min"
+            return String(format: "%dh %02dmin %02ds", hours, mins, secs)
+        } else if mins > 0 {
+            return String(format: "%dmin %02ds", mins, secs)
         } else {
-            return "\(mins)min"
+            return String(format: "%ds", secs)
         }
     }
 }

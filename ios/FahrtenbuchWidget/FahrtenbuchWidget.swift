@@ -65,7 +65,7 @@ struct TripWidgetEntryView: View {
     @ViewBuilder
     private var smallWidget: some View {
         if let tripInfo = entry.tripInfo {
-            ActiveTripWidgetView(tripInfo: tripInfo, entryDate: entry.date)
+            ActiveTripWidgetView(tripInfo: tripInfo)
         } else {
             StartTripWidgetView(isConfigured: entry.isConfigured)
         }
@@ -74,7 +74,7 @@ struct TripWidgetEntryView: View {
     @ViewBuilder
     private var mediumWidget: some View {
         if let tripInfo = entry.tripInfo {
-            MediumTripWidgetView(tripInfo: tripInfo, entryDate: entry.date)
+            MediumTripWidgetView(tripInfo: tripInfo)
         } else {
             StartTripWidgetView(isConfigured: entry.isConfigured)
         }
@@ -100,7 +100,7 @@ struct TripLiveActivity: Widget {
 
                     Spacer()
 
-                    Text(formatDuration(context.state.durationSeconds))
+                    Text(context.attributes.startDate, style: .timer)
                         .font(.title3)
                         .fontWeight(.semibold)
                         .monospacedDigit()
@@ -156,7 +156,7 @@ struct TripLiveActivity: Widget {
                                 .font(.title2)
                                 .foregroundStyle(.green)
 
-                            Text(formatDuration(context.state.durationSeconds))
+                            Text(context.attributes.startDate, style: .timer)
                                 .font(.title)
                                 .fontWeight(.semibold)
                                 .monospacedDigit()
@@ -194,7 +194,7 @@ struct TripLiveActivity: Widget {
                         .font(.caption)
                         .foregroundStyle(.green)
 
-                    Text(formatCompactDuration(context.state.durationSeconds))
+                    Text(context.attributes.startDate, style: .relative)
                         .font(.caption)
                         .fontWeight(.medium)
                         .monospacedDigit()

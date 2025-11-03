@@ -22,7 +22,6 @@ struct TripWidgetEntry: TimelineEntry {
 struct ActiveTripWidgetView: View {
 
     let tripInfo: TripInfo
-    let entryDate: Date
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -49,10 +48,9 @@ struct ActiveTripWidgetView: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
 
-                Text(tripInfo.formattedDuration(at: entryDate))
+                Text(tripInfo.durationCompact)
                     .font(.title2)
                     .fontWeight(.semibold)
-                    .monospacedDigit()
             }
 
             // Statistiken
@@ -150,7 +148,6 @@ struct StartTripWidgetView: View {
 struct MediumTripWidgetView: View {
 
     let tripInfo: TripInfo
-    let entryDate: Date
 
     var body: some View {
         HStack(spacing: 16) {
@@ -167,9 +164,8 @@ struct MediumTripWidgetView: View {
                         .foregroundStyle(.green)
                 }
 
-                Text(tripInfo.formattedDuration(at: entryDate))
+                Text(tripInfo.durationCompact)
                     .font(.system(size: 32, weight: .bold, design: .rounded))
-                    .monospacedDigit()
             }
 
             Spacer()

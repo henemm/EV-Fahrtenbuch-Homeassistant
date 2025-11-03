@@ -51,39 +51,6 @@ struct TripInfo: Codable, Hashable {
     var durationCompact: String {
         let hours = Int(durationSeconds) / 3600
         let minutes = Int(durationSeconds) / 60 % 60
-        let seconds = Int(durationSeconds) % 60
-
-        if hours > 0 {
-            return "\(hours)h \(minutes)m"
-        } else if minutes > 0 {
-            return "\(minutes)m"
-        } else {
-            return "<1 Min"
-        }
-    }
-
-    // Helper: Berechne aktuelle Dauer basierend auf einem Referenz-Date (für Widgets)
-    func currentDuration(at date: Date) -> TimeInterval {
-        return date.timeIntervalSince(startDate)
-    }
-
-    func formattedDuration(at date: Date) -> String {
-        let duration = currentDuration(at: date)
-        let hours = Int(duration) / 3600
-        let minutes = Int(duration) / 60 % 60
-        let seconds = Int(duration) % 60
-
-        if hours > 0 {
-            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-        } else {
-            return String(format: "%02d:%02d", minutes, seconds)
-        }
-    }
-
-    func compactDuration(at date: Date) -> String {
-        let duration = currentDuration(at: date)
-        let hours = Int(duration) / 3600
-        let minutes = Int(duration) / 60 % 60
 
         if hours > 0 {
             return "\(hours)h \(minutes)m"
