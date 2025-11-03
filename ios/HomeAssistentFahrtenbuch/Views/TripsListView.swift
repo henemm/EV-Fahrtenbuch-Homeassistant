@@ -26,7 +26,7 @@ struct TripsListView: View {
     @State private var shareItems: [Any] = []
     @State private var currentTime = Date()
 
-    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 
     init(settings: AppSettings = .shared) {
         self.settings = settings

@@ -150,39 +150,38 @@ struct TripLiveActivity: Widget {
             DynamicIsland {
                 // Expanded View
                 DynamicIslandExpandedRegion(.leading) {
-                    VStack(alignment: .leading, spacing: 12) {
-                        HStack {
-                            Image(systemName: "car.fill")
-                                .font(.title2)
-                                .foregroundStyle(.green)
+                    HStack {
+                        Image(systemName: "car.fill")
+                            .font(.title2)
+                            .foregroundStyle(.green)
 
-                            Text(context.attributes.startDate, style: .timer)
-                                .font(.title)
+                        Text(context.attributes.startDate, style: .timer)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .monospacedDigit()
+                    }
+                }
+
+                DynamicIslandExpandedRegion(.trailing) {
+                    VStack(alignment: .trailing, spacing: 8) {
+                        HStack(spacing: 4) {
+                            Text("\(Int(context.attributes.startBatteryPercent))%")
+                                .font(.body)
                                 .fontWeight(.semibold)
-                                .monospacedDigit()
+                            Image(systemName: "bolt.fill")
+                                .font(.caption)
+                                .foregroundStyle(.orange)
                         }
 
-                        HStack(spacing: 20) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("🔋 Batterie")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                Text("\(Int(context.attributes.startBatteryPercent))%")
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                            }
-
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("🛣️ Odometer")
-                                    .font(.caption)
-                                    .foregroundStyle(.secondary)
-                                Text("\(Int(context.attributes.startOdometer)) km")
-                                    .font(.body)
-                                    .fontWeight(.semibold)
-                            }
+                        HStack(spacing: 4) {
+                            Text("\(Int(context.attributes.startOdometer)) km")
+                                .font(.body)
+                                .fontWeight(.semibold)
+                            Image(systemName: "road.lanes")
+                                .font(.caption)
+                                .foregroundStyle(.blue)
                         }
                     }
-                    .padding()
                 }
             } compactLeading: {
                 Image(systemName: "car.fill")
