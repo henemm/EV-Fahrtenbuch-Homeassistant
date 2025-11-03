@@ -144,6 +144,64 @@ final class LiveActivityTests: XCTestCase {
         XCTAssertEqual(compact, "15m")
     }
 
+    func testTripInfoCompactDurationLessThanOneMinute() throws {
+        // Given
+        let tripInfo = TripInfo(
+            tripId: UUID(),
+            startDate: Date().addingTimeInterval(-30), // 30s
+            startBatteryPercent: 80,
+            startOdometer: 49000,
+            durationSeconds: 30,
+            lastUpdate: Date()
+        )
+
+        // When
+        let compact = tripInfo.durationCompact
+
+        // Then
+        XCTAssertEqual(compact, "<1 Min")
+    }
+
+    func testTripInfoFormattedDurationAtDate() throws {
+        // Given
+        let startDate = Date().addingTimeInterval(-3661) // 1h 1m 1s ago
+        let tripInfo = TripInfo(
+            tripId: UUID(),
+            startDate: startDate,
+            startBatteryPercent: 80,
+            startOdometer: 49000,
+            durationSeconds: 0, // Wird nicht verwendet
+            lastUpdate: Date()
+        )
+        let referenceDate = startDate.addingTimeInterval(3661)
+
+        // When
+        let formatted = tripInfo.formattedDuration(at: referenceDate)
+
+        // Then
+        XCTAssertEqual(formatted, "01:01:01")
+    }
+
+    func testTripInfoCompactDurationAtDateLessThanOneMinute() throws {
+        // Given
+        let startDate = Date()
+        let tripInfo = TripInfo(
+            tripId: UUID(),
+            startDate: startDate,
+            startBatteryPercent: 80,
+            startOdometer: 49000,
+            durationSeconds: 0,
+            lastUpdate: Date()
+        )
+        let referenceDate = startDate.addingTimeInterval(30)
+
+        // When
+        let compact = tripInfo.compactDuration(at: referenceDate)
+
+        // Then
+        XCTAssertEqual(compact, "<1 Min")
+    }
+
     // MARK: - TripDataProvider Tests
 
     func testTripDataProviderSharedInstance() throws {

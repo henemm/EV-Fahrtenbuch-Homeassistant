@@ -65,7 +65,7 @@ struct TripWidgetEntryView: View {
     @ViewBuilder
     private var smallWidget: some View {
         if let tripInfo = entry.tripInfo {
-            ActiveTripWidgetView(tripInfo: tripInfo)
+            ActiveTripWidgetView(tripInfo: tripInfo, entryDate: entry.date)
         } else {
             StartTripWidgetView(isConfigured: entry.isConfigured)
         }
@@ -74,7 +74,7 @@ struct TripWidgetEntryView: View {
     @ViewBuilder
     private var mediumWidget: some View {
         if let tripInfo = entry.tripInfo {
-            MediumTripWidgetView(tripInfo: tripInfo)
+            MediumTripWidgetView(tripInfo: tripInfo, entryDate: entry.date)
         } else {
             StartTripWidgetView(isConfigured: entry.isConfigured)
         }
@@ -226,8 +226,10 @@ struct TripLiveActivity: Widget {
 
         if hours > 0 {
             return "\(hours)h \(minutes)m"
-        } else {
+        } else if minutes > 0 {
             return "\(minutes)m"
+        } else {
+            return "<1 Min"
         }
     }
 }
