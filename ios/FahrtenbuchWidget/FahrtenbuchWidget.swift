@@ -149,54 +149,76 @@ struct TripLiveActivity: Widget {
         } dynamicIsland: { context in
             DynamicIsland {
                 // Expanded View
-                DynamicIslandExpandedRegion(.leading) {
-                    HStack {
-                        Image(systemName: "car.fill")
-                            .font(.title2)
-                            .foregroundStyle(.green)
+                DynamicIslandExpandedRegion(.bottom) {
+                    VStack(alignment: .leading, spacing: 12) {
+                        // Auto-Icon + Timer zusammen
+                        HStack(spacing: 8) {
+                            Image(systemName: "car.fill")
+                                .font(.title2)
+                                .foregroundStyle(.green)
 
-                        Text(context.attributes.startDate, style: .timer)
-                            .font(.title)
-                            .fontWeight(.semibold)
-                            .monospacedDigit()
-                    }
-                }
+                            Image(systemName: "timer")
+                                .font(.title3)
+                                .foregroundStyle(.secondary)
 
-                DynamicIslandExpandedRegion(.trailing) {
-                    VStack(alignment: .trailing, spacing: 8) {
-                        HStack(spacing: 4) {
-                            Text("\(Int(context.attributes.startBatteryPercent))%")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                            Image(systemName: "bolt.fill")
-                                .font(.caption)
-                                .foregroundStyle(.orange)
+                            Text(context.attributes.startDate, style: .timer)
+                                .font(.system(size: 32, weight: .bold, design: .rounded))
+                                .monospacedDigit()
                         }
 
-                        HStack(spacing: 4) {
-                            Text("\(Int(context.attributes.startOdometer)) km")
-                                .font(.body)
-                                .fontWeight(.semibold)
-                            Image(systemName: "road.lanes")
-                                .font(.caption)
-                                .foregroundStyle(.blue)
+                        // Statistiken linksbündig
+                        HStack(spacing: 24) {
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "bolt.fill")
+                                        .font(.caption)
+                                        .foregroundStyle(.orange)
+                                    Text("\(Int(context.attributes.startBatteryPercent))%")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                }
+                                Text("Batterie Start")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "road.lanes")
+                                        .font(.caption)
+                                        .foregroundStyle(.blue)
+                                    Text("\(Int(context.attributes.startOdometer)) km")
+                                        .font(.callout)
+                                        .fontWeight(.semibold)
+                                }
+                                Text("Kilometerstand")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
                 }
             } compactLeading: {
                 Image(systemName: "car.fill")
                     .font(.caption2)
                     .foregroundStyle(.green)
+                    .padding(.leading, 5)
             } compactTrailing: {
                 Text(context.attributes.startDate, style: .timer)
                     .font(.caption)
                     .fontWeight(.medium)
                     .monospacedDigit()
+                    .frame(width: 55)
             } minimal: {
                 Image(systemName: "car.fill")
                     .font(.caption2)
                     .foregroundStyle(.green)
             }
+            .contentMargins([.leading, .top, .bottom], 4, for: .compactLeading)
+            .contentMargins([.trailing, .top, .bottom], 4, for: .compactTrailing)
+            .contentMargins(.all, 4, for: .minimal)
         }
     }
 
