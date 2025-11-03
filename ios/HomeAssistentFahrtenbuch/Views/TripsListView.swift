@@ -24,6 +24,9 @@ struct TripsListView: View {
     @State private var showingActiveTripView = false
     @State private var showingShareSheet = false
     @State private var shareItems: [Any] = []
+    @State private var currentTime = Date()
+
+    let timer = Timer.publish(every: 60, on: .main, in: .common).autoconnect()
 
     init(settings: AppSettings = .shared) {
         self.settings = settings
@@ -79,6 +82,9 @@ struct TripsListView: View {
                 if !shareItems.isEmpty {
                     ActivityViewController(activityItems: shareItems)
                 }
+            }
+            .onReceive(timer) { time in
+                currentTime = time
             }
             .onChange(of: deepLinkHandler.pendingAction) { _, newAction in
                 guard let action = newAction else { return }
@@ -172,7 +178,7 @@ struct TripsListView: View {
 
                     Spacer()
 
-                    Text(trip.durationFormatted)
+                    Text(activeTripDuration(trip))
                         .font(.caption)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
@@ -196,6 +202,22 @@ struct TripsListView: View {
             )
         }
         .buttonStyle(.plain)
+    }
+
+    private func activeTripDuration(_ trip: Trip) -> String {
+        guard let startDate = trip.startDate else { return "0min" }
+        // Verwende currentTime State um SwiftUI zu triggern
+        let _ = currentTime
+        let duration = Date().timeIntervalSince(startDate)
+        let totalMinutes = Int(duration) / 60
+        let hours = totalMinutes / 60
+        let minutes = totalMinutes % 60
+
+        if hours > 0 {
+            return "\(hours)h \(minutes)min"
+        } else {
+            return "\(minutes)min"
+        }
     }
 
     // MARK: - Trips List by Month

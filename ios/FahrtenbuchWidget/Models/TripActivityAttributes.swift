@@ -53,9 +53,9 @@ struct TripInfo: Codable, Hashable {
         let minutes = Int(durationSeconds) / 60 % 60
 
         if hours > 0 {
-            return "\(hours)h \(minutes)m"
+            return "\(hours)h \(minutes)min"
         } else if minutes > 0 {
-            return "\(minutes)m"
+            return "\(minutes)min"
         } else {
             return "<1 Min"
         }

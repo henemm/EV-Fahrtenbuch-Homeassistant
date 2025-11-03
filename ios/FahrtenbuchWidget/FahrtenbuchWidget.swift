@@ -189,16 +189,10 @@ struct TripLiveActivity: Widget {
                     .font(.caption2)
                     .foregroundStyle(.green)
             } compactTrailing: {
-                HStack(spacing: 6) {
-                    Image(systemName: "car.fill")
-                        .font(.caption)
-                        .foregroundStyle(.green)
-
-                    Text(context.attributes.startDate, style: .relative)
-                        .font(.caption)
-                        .fontWeight(.medium)
-                        .monospacedDigit()
-                }
+                Text(context.attributes.startDate, style: .timer)
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .monospacedDigit()
             } minimal: {
                 Image(systemName: "car.fill")
                     .font(.caption2)
@@ -225,9 +219,9 @@ struct TripLiveActivity: Widget {
         let minutes = Int(duration) / 60 % 60
 
         if hours > 0 {
-            return "\(hours)h \(minutes)m"
+            return "\(hours)h \(minutes)min"
         } else if minutes > 0 {
-            return "\(minutes)m"
+            return "\(minutes)min"
         } else {
             return "<1 Min"
         }
