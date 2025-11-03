@@ -1,0 +1,686 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B7BF36402EB89C06009C1636 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF363F2EB89C06009C1636 /* ExportService.swift */; };
+		B7BF36422EB89C1E009C1636 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */; };
+		B7BF36452EB8A743009C1636 /* TripDebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */; };
+		B7BF36462EB8A743009C1636 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */; };
+		B7BF364D2EB8AC56009C1636 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF364C2EB8AC56009C1636 /* WidgetDataService.swift */; };
+		B7BF36552EB8AC9E009C1636 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7BF36542EB8AC9E009C1636 /* WidgetKit.framework */; };
+		B7BF36572EB8AC9E009C1636 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7BF36562EB8AC9E009C1636 /* SwiftUI.framework */; };
+		B7BF36682EB8AC9F009C1636 /* FahrtenbuchWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B7BF36522EB8AC9E009C1636 /* FahrtenbuchWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B7BF36952EB8C5EE009C1636 /* LiveActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36942EB8C5EE009C1636 /* LiveActivityManager.swift */; };
+		E800000000000001 /* HomeAssistentFahrtenbuchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000101 /* HomeAssistentFahrtenbuchApp.swift */; };
+		E800000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000102 /* ContentView.swift */; };
+		E800000000000003 /* TripsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000103 /* TripsListView.swift */; };
+		E800000000000004 /* ActiveTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000104 /* ActiveTripView.swift */; };
+		E800000000000005 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000105 /* SettingsView.swift */; };
+		E800000000000006 /* TripRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000106 /* TripRowView.swift */; };
+		E800000000000007 /* MonthSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000107 /* MonthSectionHeader.swift */; };
+		E800000000000008 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000108 /* Trip+CoreDataClass.swift */; };
+		E800000000000009 /* Trip+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000109 /* Trip+CoreDataProperties.swift */; };
+		E80000000000000A /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80000000000010A /* AppSettings.swift */; };
+		E80000000000000B /* HomeAssistantService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80000000000010B /* HomeAssistantService.swift */; };
+		E80000000000000C /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80000000000010C /* KeychainService.swift */; };
+		E80000000000000D /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80000000000010D /* PersistenceController.swift */; };
+		E80000000000000E /* TripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80000000000010E /* TripsViewModel.swift */; };
+		E80000000000000F /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E80000000000010F /* SettingsViewModel.swift */; };
+		E800000000000010 /* Fahrtenbuch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000110 /* Fahrtenbuch.xcdatamodeld */; };
+		E800000000000011 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E800000000000112 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B7BF36662EB8AC9F009C1636 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8000000000000F8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B7BF36512EB8AC9E009C1636;
+			remoteInfo = FahrtenbuchWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B7BF366D2EB8AC9F009C1636 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B7BF36682EB8AC9F009C1636 /* FahrtenbuchWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		B7BF363F2EB89C06009C1636 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
+		B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDebugLogger.swift; sourceTree = "<group>"; };
+		B7BF364C2EB8AC56009C1636 /* WidgetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataService.swift; sourceTree = "<group>"; };
+		B7BF36522EB8AC9E009C1636 /* FahrtenbuchWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FahrtenbuchWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7BF36542EB8AC9E009C1636 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B7BF36562EB8AC9E009C1636 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B7BF36702EB8ADB8009C1636 /* FahrtenbuchWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FahrtenbuchWidgetExtension.entitlements; sourceTree = "<group>"; };
+		B7BF36942EB8C5EE009C1636 /* LiveActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityManager.swift; sourceTree = "<group>"; };
+		E800000000000100 /* HomeAssistentFahrtenbuch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HomeAssistentFahrtenbuch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E800000000000101 /* HomeAssistentFahrtenbuchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssistentFahrtenbuchApp.swift; sourceTree = "<group>"; };
+		E800000000000102 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E800000000000103 /* TripsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsListView.swift; sourceTree = "<group>"; };
+		E800000000000104 /* ActiveTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTripView.swift; sourceTree = "<group>"; };
+		E800000000000105 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E800000000000106 /* TripRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRowView.swift; sourceTree = "<group>"; };
+		E800000000000107 /* MonthSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeader.swift; sourceTree = "<group>"; };
+		E800000000000108 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
+		E800000000000109 /* Trip+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		E80000000000010A /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		E80000000000010B /* HomeAssistantService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeAssistantService.swift; sourceTree = "<group>"; };
+		E80000000000010C /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		E80000000000010D /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		E80000000000010E /* TripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewModel.swift; sourceTree = "<group>"; };
+		E80000000000010F /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		E800000000000111 /* Fahrtenbuch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Fahrtenbuch.xcdatamodel; sourceTree = "<group>"; };
+		E800000000000112 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		B7BF36692EB8AC9F009C1636 /* Exceptions for "FahrtenbuchWidget" folder in "FahrtenbuchWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = B7BF36512EB8AC9E009C1636 /* FahrtenbuchWidgetExtension */;
+		};
+		B7BF366F2EB8AD18009C1636 /* Exceptions for "FahrtenbuchWidget" folder in "HomeAssistentFahrtenbuch" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/TripActivityAttributes.swift,
+				Providers/TripWidgetProvider.swift,
+				Views/TripWidgetView.swift,
+			);
+			target = E8000000000000FF /* HomeAssistentFahrtenbuch */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		B7BF36582EB8AC9E009C1636 /* FahrtenbuchWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				B7BF366F2EB8AD18009C1636 /* Exceptions for "FahrtenbuchWidget" folder in "HomeAssistentFahrtenbuch" target */,
+				B7BF36692EB8AC9F009C1636 /* Exceptions for "FahrtenbuchWidget" folder in "FahrtenbuchWidgetExtension" target */,
+			);
+			path = FahrtenbuchWidget;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B7BF364F2EB8AC9E009C1636 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7BF36572EB8AC9E009C1636 /* SwiftUI.framework in Frameworks */,
+				B7BF36552EB8AC9E009C1636 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8000000000000FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B7BF36532EB8AC9E009C1636 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B7BF36542EB8AC9E009C1636 /* WidgetKit.framework */,
+				B7BF36562EB8AC9E009C1636 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8000000000000F7 = {
+			isa = PBXGroup;
+			children = (
+				B7BF36702EB8ADB8009C1636 /* FahrtenbuchWidgetExtension.entitlements */,
+				E800000000000200 /* HomeAssistentFahrtenbuch */,
+				B7BF36582EB8AC9E009C1636 /* FahrtenbuchWidget */,
+				B7BF36532EB8AC9E009C1636 /* Frameworks */,
+				E8000000000000F9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8000000000000F9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E800000000000100 /* HomeAssistentFahrtenbuch.app */,
+				B7BF36522EB8AC9E009C1636 /* FahrtenbuchWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E800000000000200 /* HomeAssistentFahrtenbuch */ = {
+			isa = PBXGroup;
+			children = (
+				E800000000000101 /* HomeAssistentFahrtenbuchApp.swift */,
+				E800000000000201 /* Views */,
+				E800000000000202 /* ViewModels */,
+				E800000000000203 /* Models */,
+				E800000000000204 /* Services */,
+				E800000000000110 /* Fahrtenbuch.xcdatamodeld */,
+				E800000000000112 /* Assets.xcassets */,
+			);
+			path = HomeAssistentFahrtenbuch;
+			sourceTree = "<group>";
+		};
+		E800000000000201 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E800000000000102 /* ContentView.swift */,
+				E800000000000103 /* TripsListView.swift */,
+				E800000000000104 /* ActiveTripView.swift */,
+				E800000000000105 /* SettingsView.swift */,
+				E800000000000205 /* Components */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E800000000000202 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B7BF363F2EB89C06009C1636 /* ExportService.swift */,
+				E80000000000010E /* TripsViewModel.swift */,
+				E80000000000010F /* SettingsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		E800000000000203 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E800000000000108 /* Trip+CoreDataClass.swift */,
+				E800000000000109 /* Trip+CoreDataProperties.swift */,
+				E80000000000010A /* AppSettings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E800000000000204 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B7BF36942EB8C5EE009C1636 /* LiveActivityManager.swift */,
+				B7BF364C2EB8AC56009C1636 /* WidgetDataService.swift */,
+				B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */,
+				B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */,
+				E80000000000010B /* HomeAssistantService.swift */,
+				E80000000000010C /* KeychainService.swift */,
+				E80000000000010D /* PersistenceController.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E800000000000205 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */,
+				E800000000000106 /* TripRowView.swift */,
+				E800000000000107 /* MonthSectionHeader.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B7BF36512EB8AC9E009C1636 /* FahrtenbuchWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7BF366A2EB8AC9F009C1636 /* Build configuration list for PBXNativeTarget "FahrtenbuchWidgetExtension" */;
+			buildPhases = (
+				B7BF364E2EB8AC9E009C1636 /* Sources */,
+				B7BF364F2EB8AC9E009C1636 /* Frameworks */,
+				B7BF36502EB8AC9E009C1636 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				B7BF36582EB8AC9E009C1636 /* FahrtenbuchWidget */,
+			);
+			name = FahrtenbuchWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = FahrtenbuchWidgetExtension;
+			productReference = B7BF36522EB8AC9E009C1636 /* FahrtenbuchWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		E8000000000000FF /* HomeAssistentFahrtenbuch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8000000000000FA /* Build configuration list for PBXNativeTarget "HomeAssistentFahrtenbuch" */;
+			buildPhases = (
+				E8000000000000FC /* Sources */,
+				E8000000000000FD /* Frameworks */,
+				E8000000000000FE /* Resources */,
+				B7BF366D2EB8AC9F009C1636 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B7BF36672EB8AC9F009C1636 /* PBXTargetDependency */,
+			);
+			name = HomeAssistentFahrtenbuch;
+			productName = HomeAssistentFahrtenbuch;
+			productReference = E800000000000100 /* HomeAssistentFahrtenbuch.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8000000000000F8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B7BF36512EB8AC9E009C1636 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					E8000000000000FF = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = E8000000000000FB /* Build configuration list for PBXProject "HomeAssistentFahrtenbuch" */;
+			developmentRegion = de;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				de,
+				Base,
+			);
+			mainGroup = E8000000000000F7;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E8000000000000F9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8000000000000FF /* HomeAssistentFahrtenbuch */,
+				B7BF36512EB8AC9E009C1636 /* FahrtenbuchWidgetExtension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B7BF36502EB8AC9E009C1636 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8000000000000FE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E800000000000011 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B7BF364E2EB8AC9E009C1636 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8000000000000FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E800000000000001 /* HomeAssistentFahrtenbuchApp.swift in Sources */,
+				E800000000000002 /* ContentView.swift in Sources */,
+				E800000000000003 /* TripsListView.swift in Sources */,
+				E800000000000004 /* ActiveTripView.swift in Sources */,
+				E800000000000005 /* SettingsView.swift in Sources */,
+				E800000000000006 /* TripRowView.swift in Sources */,
+				B7BF36452EB8A743009C1636 /* TripDebugLogger.swift in Sources */,
+				B7BF36462EB8A743009C1636 /* DeepLinkHandler.swift in Sources */,
+				E800000000000007 /* MonthSectionHeader.swift in Sources */,
+				E800000000000008 /* Trip+CoreDataClass.swift in Sources */,
+				E800000000000009 /* Trip+CoreDataProperties.swift in Sources */,
+				B7BF36952EB8C5EE009C1636 /* LiveActivityManager.swift in Sources */,
+				E80000000000000A /* AppSettings.swift in Sources */,
+				E80000000000000B /* HomeAssistantService.swift in Sources */,
+				E80000000000000C /* KeychainService.swift in Sources */,
+				E80000000000000D /* PersistenceController.swift in Sources */,
+				B7BF36422EB89C1E009C1636 /* ActivityViewController.swift in Sources */,
+				E80000000000000E /* TripsViewModel.swift in Sources */,
+				B7BF36402EB89C06009C1636 /* ExportService.swift in Sources */,
+				E80000000000000F /* SettingsViewModel.swift in Sources */,
+				B7BF364D2EB8AC56009C1636 /* WidgetDataService.swift in Sources */,
+				E800000000000010 /* Fahrtenbuch.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B7BF36672EB8AC9F009C1636 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B7BF36512EB8AC9E009C1636 /* FahrtenbuchWidgetExtension */;
+			targetProxy = B7BF36662EB8AC9F009C1636 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B7BF366B2EB8AC9F009C1636 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FahrtenbuchWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XK87E2B3VR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FahrtenbuchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FahrtenbuchWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = henemm.fahrtenbuch.dev.FahrtenbuchWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B7BF366C2EB8AC9F009C1636 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = FahrtenbuchWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XK87E2B3VR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FahrtenbuchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FahrtenbuchWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = henemm.fahrtenbuch.dev.FahrtenbuchWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E800000000000300 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HomeAssistentFahrtenbuch/HomeAssistentFahrtenbuch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XK87E2B3VR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fahrtenbuch;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = henemm.fahrtenbuch.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E800000000000301 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = HomeAssistentFahrtenbuch/HomeAssistentFahrtenbuch.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XK87E2B3VR;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Fahrtenbuch;
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = henemm.fahrtenbuch.dev;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		E800000000000302 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E800000000000303 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B7BF366A2EB8AC9F009C1636 /* Build configuration list for PBXNativeTarget "FahrtenbuchWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7BF366B2EB8AC9F009C1636 /* Debug */,
+				B7BF366C2EB8AC9F009C1636 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8000000000000FA /* Build configuration list for PBXNativeTarget "HomeAssistentFahrtenbuch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E800000000000300 /* Debug */,
+				E800000000000301 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8000000000000FB /* Build configuration list for PBXProject "HomeAssistentFahrtenbuch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E800000000000302 /* Debug */,
+				E800000000000303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E800000000000110 /* Fahrtenbuch.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E800000000000111 /* Fahrtenbuch.xcdatamodel */,
+			);
+			currentVersion = E800000000000111 /* Fahrtenbuch.xcdatamodel */;
+			path = Fahrtenbuch.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E8000000000000F8 /* Project object */;
+}

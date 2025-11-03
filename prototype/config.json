@@ -1,0 +1,10 @@
+{
+  "ha_url": "https://wn3mlk5octtk6thqfvuckvhvbforyudx.ui.nabu.casa",
+  "ha_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNTI3OGI4Zjc2ZTQ0ZDhlYjVjNzkzM2NhMzUwOTQ5YyIsImlhdCI6MTc2MjA5MjcxMSwiZXhwIjoyMDc3NDUyNzExfQ.nZuO5fWGOhAiWJchVquMXVUWTXfXAZsFEplXZ9-BTRk",
+  "entities": {
+    "battery_level": "sensor.skoda_enyaq_batteriestand",
+    "odometer": "sensor.skoda_enyaq_kilometerstand"
+  },
+  "cost_per_kwh": 0.40,
+  "battery_capacity_kwh": 77
+}

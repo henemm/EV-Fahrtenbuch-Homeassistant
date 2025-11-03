@@ -1,0 +1,10 @@
+{
+  "ha_url": "https://deine-instanz.ui.nabu.casa",
+  "ha_token": "DEIN_LANGLEBIGER_TOKEN_HIER",
+  "entities": {
+    "battery_level": "sensor.enyaq_battery_level",
+    "odometer": "sensor.enyaq_odometer"
+  },
+  "cost_per_kwh": 0.30,
+  "battery_capacity_kwh": 77
+}
