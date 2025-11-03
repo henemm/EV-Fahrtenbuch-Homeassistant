@@ -1,6 +1,31 @@
 # 🎉 Release Ready - Übersicht
 
-Stand: 2025-11-03 | **iOS 18+ | Swift 6 | Liquid Glass Design**
+Stand: 2025-11-03 23:00 | **iOS 18+ | Swift 6 | Liquid Glass Design**
+
+**Version:** 1.0.1 (Build 2) | **Status:** TestFlight Ready
+
+---
+
+## 🆕 Letzte Updates (3. Nov. Abend)
+
+### Dynamic Island Optimierungen
+- **Compact View:** Schmal + korrekte Timer-Anzeige (nicht abgeschnitten)
+- **Expanded View:** Linksbündiges Layout mit .bottom Region
+- **ContentMargins:** Optimiert für alle Modi (compact/minimal)
+
+### Version Bump
+- **Version:** 1.0.1 (Build 2)
+- **Git Tag:** v1.0.1
+- **Archive:** Erstellt in `ios/build/HomeAssistentFahrtenbuch.xcarchive`
+
+### Neues AppIcon
+- **Symbol:** bolt.car.fill ⚡🚗 (statt generisches Auto)
+- **Design:** Modernes EV-Icon auf grünem Gradient
+- **Qualität:** Optimiert für 1024x1024
+
+### Dokumentation
+- **CLAUDE.md:** Erweitert mit Dynamic Island Best Practices
+- **TestFlight:** Archive-Prozess dokumentiert
 
 ---
 
@@ -213,18 +238,24 @@ Features:
 
 ## 🚀 Nächste Schritte
 
-**Heute:**
-- [ ] Dateien hinzufügen
-- [ ] Widget Extension erstellen
-- [ ] App Groups konfigurieren
-- [ ] Build testen
+**Setup (✅ Erledigt):**
+- [x] Dateien hinzugefügt
+- [x] Widget Extension erstellt
+- [x] App Groups konfiguriert
+- [x] Build getestet
+
+**TestFlight (In Arbeit):**
+- [x] Archive erstellt (ios/build/)
+- [ ] Upload zu TestFlight (via Xcode Organizer)
+- [ ] Tester hinzufügen
+- [ ] Build freigeben
 
 **Diese Woche:**
 - [ ] Mit echtem Auto testen
 - [ ] Kurzbefehle-Automation erstellen (Bluetooth)
 - [ ] Debug-Log einer echten Fahrt sammeln
 
-**Vor Release:**
+**Vor App Store Release:**
 - [ ] Screenshots mit Demo-Modus
 - [ ] Widget-Screenshots
 - [ ] App Store Beschreibung
