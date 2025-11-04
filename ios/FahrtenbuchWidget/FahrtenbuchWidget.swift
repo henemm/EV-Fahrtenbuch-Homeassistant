@@ -88,63 +88,13 @@ struct TripLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: TripActivityAttributes.self) { context in
             // Lock Screen / Banner UI
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Image(systemName: "car.fill")
-                        .font(.title3)
-                        .foregroundStyle(.green)
-
-                    Text("Fahrt läuft")
-                        .font(.headline)
-                        .foregroundStyle(.primary)
-
-                    Spacer()
-
-                    Text(context.attributes.startDate, style: .timer)
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .monospacedDigit()
-                }
-
-                Divider()
-                    .overlay(.quaternary)
-
-                HStack(spacing: 16) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Label {
-                            Text("Batterie")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        } icon: {
-                            Image(systemName: "bolt.fill")
-                                .font(.caption2)
-                        }
-
-                        Text("\(Int(context.attributes.startBatteryPercent))%")
-                            .font(.callout)
-                            .fontWeight(.medium)
-                    }
-
-                    Divider()
-
-                    VStack(alignment: .leading, spacing: 4) {
-                        Label {
-                            Text("Start")
-                                .font(.caption2)
-                                .foregroundStyle(.secondary)
-                        } icon: {
-                            Image(systemName: "road.lanes")
-                                .font(.caption2)
-                        }
-
-                        Text("\(Int(context.attributes.startOdometer)) km")
-                            .font(.callout)
-                            .fontWeight(.medium)
-                    }
-                }
-            }
-            .padding(16)
-            .background(.ultraThinMaterial)
+            TripLockScreenView(
+                startDate: context.attributes.startDate,
+                startBatteryPercent: context.attributes.startBatteryPercent,
+                startOdometer: context.attributes.startOdometer
+            )
+            .activityBackgroundTint(.black.opacity(0.2))
+            .activitySystemActionForegroundColor(.white)
 
         } dynamicIsland: { context in
             DynamicIsland {
@@ -222,29 +172,42 @@ struct TripLiveActivity: Widget {
         }
     }
 
-    // Helper Functions
-    private func formatDuration(_ duration: TimeInterval) -> String {
-        let hours = Int(duration) / 3600
-        let minutes = Int(duration) / 60 % 60
-        let seconds = Int(duration) % 60
+}
 
-        if hours > 0 {
-            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
-        } else {
-            return String(format: "%02d:%02d", minutes, seconds)
+// MARK: - Lock Screen View
+
+@available(iOS 16.0, *)
+private struct TripLockScreenView: View {
+    let startDate: Date
+    let startBatteryPercent: Double
+    let startOdometer: Double
+
+    var body: some View {
+        HStack {
+            // Links: Auto-Icon
+            ZStack {
+                Circle()
+                    .fill(Color.green.opacity(0.28))
+                    .frame(width: 40, height: 40)
+                Image(systemName: "car.fill")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundColor(.white)
+            }
+            .padding(.leading)
+
+            Spacer()
+
+            // Mitte: Timer
+            Text(startDate, style: .timer)
+                .font(.system(size: 40, weight: .semibold, design: .rounded))
+                .monospacedDigit()
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity)
+                .multilineTextAlignment(.center)
+
+            Spacer()
         }
-    }
-
-    private func formatCompactDuration(_ duration: TimeInterval) -> String {
-        let hours = Int(duration) / 3600
-        let minutes = Int(duration) / 60 % 60
-
-        if hours > 0 {
-            return "\(hours)h \(minutes)min"
-        } else if minutes > 0 {
-            return "\(minutes)min"
-        } else {
-            return "<1 Min"
-        }
+        .frame(maxWidth: .infinity)
+        .padding(.vertical, 12)
     }
 }
