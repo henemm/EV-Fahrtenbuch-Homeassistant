@@ -13,10 +13,6 @@ struct ActiveTripView: View {
     @ObservedObject var trip: Trip
     @ObservedObject var viewModel: TripsViewModel
 
-    @State private var durationSeconds: TimeInterval = 0
-
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
     var body: some View {
         NavigationStack {
             ZStack {
@@ -50,11 +46,18 @@ struct ActiveTripView: View {
                             value: trip.startDateFormatted
                         )
 
-                        InfoRow(
-                            icon: "timer",
-                            label: "Dauer",
-                            value: formatDuration(durationSeconds)
-                        )
+                        HStack {
+                            Label("Dauer", systemImage: "timer")
+                                .foregroundStyle(.secondary)
+
+                            Spacer()
+
+                            if let startDate = trip.startDate {
+                                Text(startDate, style: .timer)
+                                    .fontWeight(.semibold)
+                                    .monospacedDigit()
+                            }
+                        }
 
                         Divider()
 
@@ -121,34 +124,6 @@ struct ActiveTripView: View {
                     }
                 }
             }
-            .onAppear {
-                updateDuration()
-            }
-            .onReceive(timer) { _ in
-                updateDuration()
-            }
-        }
-    }
-
-    // MARK: - Helpers
-
-    private func updateDuration() {
-        guard let startDate = trip.startDate else { return }
-        durationSeconds = Date().timeIntervalSince(startDate)
-    }
-
-    private func formatDuration(_ seconds: TimeInterval) -> String {
-        let totalMinutes = Int(seconds) / 60
-        let secs = Int(seconds) % 60
-        let hours = totalMinutes / 60
-        let mins = totalMinutes % 60
-
-        if hours > 0 {
-            return String(format: "%dh %02dmin %02ds", hours, mins, secs)
-        } else if mins > 0 {
-            return String(format: "%dmin %02ds", mins, secs)
-        } else {
-            return String(format: "%ds", secs)
         }
     }
 }
