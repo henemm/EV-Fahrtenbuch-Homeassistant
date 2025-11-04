@@ -60,9 +60,6 @@ final class LiveActivityManager {
 
             currentActivity = activity
 
-            // Auto-Update Timer starten
-            startAutoUpdate()
-
             print("✅ LiveActivity ERFOLGREICH gestartet für Trip: \(tripId)")
             print("✅ Activity ID: \(activity.id)")
             print("✅ Activity State: \(activity.activityState)")
