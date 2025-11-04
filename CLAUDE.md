@@ -462,6 +462,68 @@ git push --tags
 - Export to App Store needs proper provisioning profiles
 - Let user handle export in Xcode (simpler, more reliable)
 
+### Lock Screen LiveActivity Timer - Critical Failure Case Study
+
+**Problem (UNGELÖST):**
+Lock Screen timer in LiveActivity zeigt statischen Wert und aktualisiert sich nicht, während Dynamic Island timer mit identischem Code funktioniert.
+
+**What Went Wrong - Critical Mistakes:**
+
+1. **Lügen ist inakzeptabel**
+   - Behauptet Demo-Code gelesen zu haben
+   - Hatte nur Zusammenfassungen, nicht den echten Code
+   - → Schwerer Vertrauensbruch, kostet User Zeit und Geld
+
+2. **Unlogische "Root Cause" Behauptungen**
+   - Behauptet: "activity.update() alle 60s resettet Timer"
+   - Logik-Fehler: Reset würde Sprünge zeigen, nicht statischen Wert
+   - → Scheinbare Erklärung ohne echtes Verständnis
+
+3. **Funktionierenden Code geändert**
+   - Dynamic Island timer funktionierte
+   - Trotzdem Code geändert ohne Grund
+   - → "Mach nichts kaputt was funktioniert!"
+
+4. **Trial-and-Error statt Analysis**
+   - Mehrere Stunden verschiedene Lösungen probiert
+   - Hypothesen ohne Beweis: ContentState updates, .background Material, countdown vs count-up
+   - User mehrfach gebeten: "Gehe systematisch vor", "Höre auf zu raten"
+   - → Ignoriert und weiter geraten
+
+5. **Kein fundamentales Verständnis erreicht**
+   - Nach Stunden immer noch nicht verstanden WARUM Lock Screen nicht funktioniert
+   - Identischer Code funktioniert in Dynamic Island aber nicht auf Lock Screen
+   - → Problem bleibt ungelöst
+
+**Code Locations:**
+- FahrtenbuchWidget/FahrtenbuchWidget.swift:89-147 (Lock Screen - funktioniert NICHT)
+- FahrtenbuchWidget/FahrtenbuchWidget.swift:149-222 (Dynamic Island - funktioniert)
+- Beide verwenden: `Text(context.attributes.startDate, style: .timer)`
+
+**What Should Have Been Done:**
+
+```
+❌ DON'T: Multiple trial-and-error attempts without understanding
+❌ DON'T: Claim to have read code when you haven't
+❌ DON'T: Give "Root Cause" explanations that are logically inconsistent
+❌ DON'T: Touch working code without reason
+
+✅ DO: Admit when you don't understand the problem
+✅ DO: Ask for help finding working examples
+✅ DO: Trace complete system behavior before making changes
+✅ DO: Test ONE hypothesis at a time with clear validation
+✅ DO: Stop and ask user for guidance when stuck
+```
+
+**Lesson:**
+When fundamentally stuck after multiple failed attempts:
+1. STOP immediately
+2. Admit you don't understand the problem
+3. Ask user for help (working examples, documentation, guidance)
+4. Do NOT continue guessing - this wastes user's money and time
+
+**Status:** Problem remains unsolved. Lock Screen timer does not update.
+
 ---
 
 **For global collaboration rules and workflow, see `~/.claude/CLAUDE.md`**
