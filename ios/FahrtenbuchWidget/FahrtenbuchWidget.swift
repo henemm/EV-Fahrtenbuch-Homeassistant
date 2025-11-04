@@ -100,7 +100,7 @@ struct TripLiveActivity: Widget {
 
                     Spacer()
 
-                    Text(timerInterval: context.attributes.startDate...Date.distantFuture, countsDown: false)
+                    Text(context.attributes.startDate, style: .timer)
                         .font(.title3)
                         .fontWeight(.semibold)
                         .monospacedDigit()
