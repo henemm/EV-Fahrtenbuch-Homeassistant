@@ -161,7 +161,7 @@ struct TripLiveActivity: Widget {
                                 .font(.title3)
                                 .foregroundStyle(.secondary)
 
-                            Text(timerInterval: context.attributes.startDate...Date.distantFuture, countsDown: false)
+                            Text(context.attributes.startDate, style: .timer)
                                 .font(.system(size: 32, weight: .bold, design: .rounded))
                                 .monospacedDigit()
                         }
@@ -206,7 +206,7 @@ struct TripLiveActivity: Widget {
                     .foregroundStyle(.green)
                     .padding(.leading, 5)
             } compactTrailing: {
-                Text(timerInterval: context.attributes.startDate...Date.distantFuture, countsDown: false)
+                Text(context.attributes.startDate, style: .timer)
                     .font(.caption)
                     .fontWeight(.medium)
                     .monospacedDigit()
