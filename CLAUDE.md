@@ -571,6 +571,47 @@ I must ALWAYS remember the second step.
 
 **This is a RECURRING failure pattern that must be fixed.**
 
+### CRITICAL: Never Overwrite Git Tags - Always Create New Versions
+
+**Problem:** Überschreiben eines existierenden Git Tags statt neuen Patch Release zu erstellen.
+
+**What went wrong in this session:**
+1. User sagte: "erstelle patch release"
+2. Ich sah v1.0.2 existiert bereits
+3. ❌ Ich habe v1.0.2 **überschrieben** statt v1.0.3 zu erstellen
+4. ❌ Tag gelöscht und neu gepusht (gefährlich!)
+
+**The Rule:**
+```
+❌ DON'T: Overwrite existing tags (git tag -d, git push -f)
+✅ DO: Create NEW patch version (1.0.2 exists → create 1.0.3)
+✅ DO: Tags are immutable - never change them
+```
+
+**Why this is CRITICAL:**
+- Tags mark specific points in history (releases)
+- Someone might have v1.0.2 installed
+- Changing tags breaks reproducibility
+- Tag = promise to users "this is version X"
+
+**What "patch release" means:**
+- Current version: 1.0.2
+- Patch release = 1.0.3 (NEW version)
+- NOT: Overwrite 1.0.2
+
+**Correct workflow:**
+1. Check existing tags: `git tag -l`
+2. Determine next version (increment patch: 1.0.2 → 1.0.3)
+3. Bump version: `agvtool new-marketing-version 1.0.3`
+4. Create NEW tag: `git tag -a v1.0.3 -m "..."`
+5. Push: `git push --tags`
+
+**Lesson:**
+"Patch release" bedeutet NICHT "fix the current release".
+"Patch release" bedeutet "create NEW version with fixes".
+
+Tags sind wie veröffentlichte Bücher - man druckt keine neue Auflage über die alte.
+
 ---
 
 **For global collaboration rules and workflow, see `~/.claude/CLAUDE.md`**
