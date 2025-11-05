@@ -524,6 +524,53 @@ When fundamentally stuck after multiple failed attempts:
 
 **Status:** Problem remains unsolved. Lock Screen timer does not update.
 
+### CRITICAL: Xcode Project Files Must Be Registered
+
+**Problem:** Creating Swift files doesn't automatically add them to the Xcode project.
+
+**What went wrong in this session:**
+1. ✅ Created 3 Intent files (StartTripIntent.swift, EndTripIntent.swift, FahrtenbuchShortcuts.swift)
+2. ❌ Forgot to add them to project.pbxproj
+3. ❌ Build "succeeded" because files were ignored (not compiled)
+4. ❌ Committed "working" code that doesn't actually work
+5. ❌ User had to manually add files in Xcode
+
+**The Rule:**
+```
+❌ DON'T: Create files and assume they're part of the project
+✅ DO: Create files AND edit project.pbxproj to register them
+✅ DO: Verify files appear in project.pbxproj after adding
+✅ DO: Actually test the build (not just "no errors" from ignored files)
+```
+
+**How to add files to Xcode project:**
+```bash
+# Check if files are registered:
+grep "YourFile.swift" HomeAssistentFahrtenbuch.xcodeproj/project.pbxproj
+
+# If missing → Edit project.pbxproj to add file references
+# (See existing patterns in project.pbxproj)
+```
+
+**Why this is CRITICAL:**
+- iOS/Xcode ≠ Node.js/Python (files aren't auto-discovered)
+- Build can succeed even when files are missing (they're just ignored)
+- User wastes time testing "working" code that doesn't actually exist
+- This has happened MULTIPLE times in this project
+
+**Verification checklist BEFORE committing:**
+1. ✅ File created in filesystem
+2. ✅ File registered in project.pbxproj
+3. ✅ Build succeeds WITH actual compilation
+4. ✅ Test functionality (not just "builds")
+
+**Lesson:**
+I have a mental model from other languages where "file exists = part of project".
+In iOS: "file exists + registered in Xcode = part of project".
+I must ALWAYS remember the second step.
+
+**This is a RECURRING failure pattern that must be fixed.**
+
 ---
 
 **For global collaboration rules and workflow, see `~/.claude/CLAUDE.md`**
