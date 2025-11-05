@@ -612,6 +612,164 @@ I must ALWAYS remember the second step.
 
 Tags sind wie veröffentlichte Bücher - man druckt keine neue Auflage über die alte.
 
+### Core Data Reactivity - @ObservedObject is Essential
+
+**Problem (Session v1.0.4):** UI nicht aktualisiert nach Trip-Edits, obwohl Core Data save() funktionierte.
+
+**Root Cause:** TripRowView verwendete `let trip: Trip` statt `@ObservedObject var trip: Trip`
+
+**The Rule:**
+```swift
+❌ DON'T: let trip: Trip  // View sees initial snapshot only
+✅ DO: @ObservedObject var trip: Trip  // View observes Core Data changes
+```
+
+**Why this matters:**
+- SwiftUI needs `@ObservedObject` to subscribe to Core Data change notifications
+- Without it, views show stale data until full view refresh
+- Core Data saves succeed, but UI doesn't reflect changes
+
+**Verification:**
+```swift
+// In TripRowView.swift
+@ObservedObject var trip: Trip  // ✅ Reactive
+
+// Combined with proper save pattern in ViewModel:
+try viewContext.save()
+viewContext.refresh(trip, mergeChanges: false)
+viewContext.processPendingChanges()
+```
+
+**Location:** TripRowView.swift:12
+
+### ForEach Identity with Core Data Entities
+
+**Problem (Session v1.0.4):** Tapping a trip sometimes opened wrong trip in edit sheet. Intermittent bug.
+
+**Root Cause:** ForEach relied on implicit identity, causing view confusion after Core Data updates.
+
+**The Rule:**
+```swift
+❌ DON'T: ForEach(trips) { trip in  // Implicit identity
+✅ DO: ForEach(trips, id: \.id) { trip in  // Explicit UUID identity
+```
+
+**Why this matters:**
+- Core Data entity identity can be unstable without explicit `id:`
+- SwiftUI may reuse views incorrectly after data changes
+- Bug is intermittent, making it harder to reproduce
+
+**Debug approach that found the issue:**
+```swift
+.onTapGesture {
+    print("📍 Tap on Trip: \(trip.id?.uuidString ?? "nil")")
+    tripToEdit = trip
+    showingEditTrip = true
+}
+
+// In EditTripView.init:
+print("🎬 EditTripView.init() - Trip: \(trip?.id?.uuidString ?? "nil")")
+```
+
+Logs showed UUID mismatch → proved identity confusion.
+
+**Location:** TripsListView.swift:319
+
+### Swift 6 Strict Concurrency for AppIntents
+
+**Problem (Session v1.0.4):** Swift 6 concurrency warnings on Intent static properties.
+
+**Error:**
+```
+Static property 'title' is not concurrency-safe because non-'Sendable' type...
+```
+
+**The Rule:**
+```swift
+❌ DON'T:
+static let title: LocalizedStringResource = "Fahrt starten"
+static let description: IntentDescription = IntentDescription("...")
+static let openAppWhenRun: Bool = true
+
+✅ DO:
+static var title: LocalizedStringResource { "Fahrt starten" }
+static var description: IntentDescription { IntentDescription("...") }
+static var openAppWhenRun: Bool { true }
+```
+
+**Why this matters:**
+- Swift 6 strict concurrency mode rejects stored `static let` for non-Sendable types
+- Computed properties are concurrency-safe by design
+- Required for Xcode 16+ / Swift 6 compliance
+
+**Location:** StartTripIntent.swift:13-16, EndTripIntent.swift:13-16
+
+### Analysis-First Principle - Reinforced
+
+**Problem (Session v1.0.4):** Multiple failed attempts to fix UI update bug with speculative solutions.
+
+**User criticism:** "Und was hast Du bisher gemacht??? Das ist doch trivial. Was waren denn die 5 vorherigen Versuche das Problem zu lösen?"
+
+**Failed approaches (all speculative):**
+1. ❌ Added debug logging without understanding root cause
+2. ❌ Added `processPendingChanges()` as "maybe this helps"
+3. ❌ Tried `Task.sleep()` delays
+4. ❌ Didn't immediately analyze View hierarchy
+5. ❌ Ignored second problem (wrong trip opens)
+
+**Correct approach (should have done first):**
+1. ✅ Trace View hierarchy: TripsListView → TripRowView → Trip entity
+2. ✅ Check observation pattern: `let` vs `@ObservedObject`
+3. ✅ Verify Core Data save: Add targeted logging
+4. ✅ Test hypothesis: Change `let` to `@ObservedObject`
+5. ✅ Confirm fix: Single targeted change, verify immediately
+
+**The Rule (from global CLAUDE.md):**
+```
+❌ DON'T: Try 5 different speculative fixes
+✅ DO: Identify root cause with CERTAINTY before implementing fix
+```
+
+**Lesson reinforced:**
+Analysis-First is NOT optional. User expectations:
+- Gründliche Analyse SOFORT, nicht nach mehreren gescheiterten Versuchen
+- Root Cause identifizieren mit Sicherheit
+- Keine spekulativen Fixes ohne Verständnis
+
+### Version Management Fallback - Manual project.pbxproj Edit
+
+**Problem (Session v1.0.4):** `agvtool new-marketing-version 1.0.4` updated Widget Info.plist but NOT project.pbxproj MARKETING_VERSION.
+
+**Verification showed:**
+```bash
+grep "MARKETING_VERSION" project.pbxproj
+# Still showed 1.0.1 and 1.0.2 (not 1.0.4)
+```
+
+**Solution:** Manual find-and-replace in project.pbxproj:
+```bash
+# Replace all occurrences
+MARKETING_VERSION = 1.0.1  →  MARKETING_VERSION = 1.0.4
+MARKETING_VERSION = 1.0.2  →  MARKETING_VERSION = 1.0.4
+```
+
+**The Rule:**
+```
+✅ DO: Always verify version in project.pbxproj after agvtool
+✅ DO: Manually edit project.pbxproj if agvtool fails
+✅ DO: Check BOTH targets (App + Widget Extension)
+```
+
+**Verification command:**
+```bash
+grep "MARKETING_VERSION\|CURRENT_PROJECT_VERSION" HomeAssistentFahrtenbuch.xcodeproj/project.pbxproj
+```
+
+**Why agvtool failed:**
+- agvtool may update Info.plist but not Xcode project file
+- This project uses MARKETING_VERSION in build settings (requires manual update)
+- Always verify before creating git tags
+
 ---
 
 **For global collaboration rules and workflow, see `~/.claude/CLAUDE.md`**
