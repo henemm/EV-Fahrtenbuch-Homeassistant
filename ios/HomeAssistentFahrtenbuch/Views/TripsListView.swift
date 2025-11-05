@@ -24,6 +24,8 @@ struct TripsListView: View {
     @State private var showingActiveTripView = false
     @State private var showingShareSheet = false
     @State private var shareItems: [Any] = []
+    @State private var showingDeepLinkAlert = false
+    @State private var deepLinkAlertConfig: DeepLinkAlertConfig?
 
     init(settings: AppSettings = .shared) {
         self.settings = settings
@@ -83,21 +85,75 @@ struct TripsListView: View {
             .onChange(of: deepLinkHandler.pendingAction) { _, newAction in
                 guard let action = newAction else { return }
 
-                Task {
-                    switch action {
-                    case .startTrip:
-                        await viewModel.startTrip()
-                        if viewModel.activeTrip != nil {
-                            showingActiveTripView = true
-                        }
-
-                    case .endTrip:
-                        await viewModel.endTrip()
+                // Bestimme Alert-Konfiguration basierend auf Action + Zustand
+                switch action {
+                case .startTrip:
+                    if viewModel.activeTrip != nil {
+                        // Fahrt läuft bereits
+                        deepLinkAlertConfig = DeepLinkAlertConfig(
+                            title: "Fahrt läuft bereits",
+                            message: "Eine Fahrt ist bereits aktiv. Möchtest du sie beenden und eine neue starten?",
+                            confirmTitle: "Beenden & Neu starten",
+                            action: {
+                                Task {
+                                    await viewModel.endTrip()
+                                    await viewModel.startTrip()
+                                    if viewModel.activeTrip != nil {
+                                        showingActiveTripView = true
+                                    }
+                                }
+                            }
+                        )
+                    } else {
+                        // Keine Fahrt läuft
+                        deepLinkAlertConfig = DeepLinkAlertConfig(
+                            title: "Neue Fahrt starten",
+                            message: "Möchtest du eine neue Fahrt protokollieren?",
+                            confirmTitle: "Starten",
+                            action: {
+                                Task {
+                                    await viewModel.startTrip()
+                                    if viewModel.activeTrip != nil {
+                                        showingActiveTripView = true
+                                    }
+                                }
+                            }
+                        )
                     }
+                    showingDeepLinkAlert = true
 
-                    // Action als verarbeitet markieren
-                    deepLinkHandler.clearPendingAction()
+                case .endTrip:
+                    if viewModel.activeTrip != nil {
+                        // Fahrt läuft → Alert zeigen
+                        deepLinkAlertConfig = DeepLinkAlertConfig(
+                            title: "Fahrt beenden",
+                            message: "Möchtest du die laufende Fahrt beenden?",
+                            confirmTitle: "Beenden",
+                            action: {
+                                Task {
+                                    await viewModel.endTrip()
+                                }
+                            }
+                        )
+                        showingDeepLinkAlert = true
+                    }
+                    // Keine Fahrt läuft → nichts tun (silent)
                 }
+
+                // Action als verarbeitet markieren
+                deepLinkHandler.clearPendingAction()
+            }
+            .alert(
+                deepLinkAlertConfig?.title ?? "",
+                isPresented: $showingDeepLinkAlert,
+                presenting: deepLinkAlertConfig
+            ) { config in
+                Button(config.confirmTitle, role: .none) {
+                    config.action()
+                }
+                Button("Abbrechen", role: .cancel) { }
+            } message: { config in
+                Text(config.message)
             }
         }
     }
@@ -277,6 +333,15 @@ struct TripsListView: View {
             )
         }
         .sorted { $0.month > $1.month }
+    }
+
+    // MARK: - Deep Link Alert Config
+
+    struct DeepLinkAlertConfig {
+        let title: String
+        let message: String
+        let confirmTitle: String
+        let action: () -> Void
     }
 }
 

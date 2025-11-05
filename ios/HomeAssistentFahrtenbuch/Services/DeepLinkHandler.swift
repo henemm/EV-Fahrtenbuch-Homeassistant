@@ -25,21 +25,21 @@ class DeepLinkHandler: ObservableObject {
     /// Verarbeitet eingehende URL (fahrtenbuch://start oder fahrtenbuch://end)
     func handle(url: URL) {
         guard url.scheme == "fahrtenbuch" else {
-            print("Unbekanntes URL Scheme: \(url.scheme ?? "nil")")
+            print("❌ DeepLink: Unbekanntes URL Scheme: \(url.scheme ?? "nil")")
             return
         }
 
         switch url.host {
         case "start":
-            print("Deep Link: Fahrt starten")
+            print("🔗 DeepLink: Fahrt starten angefordert")
             pendingAction = .startTrip
 
         case "end":
-            print("Deep Link: Fahrt beenden")
+            print("🔗 DeepLink: Fahrt beenden angefordert")
             pendingAction = .endTrip
 
         default:
-            print("Unbekannte Deep Link Action: \(url.host ?? "nil")")
+            print("❌ DeepLink: Unbekannte Action: \(url.host ?? "nil")")
         }
     }
 
