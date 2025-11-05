@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7595A952EBB703600FE7A45 /* EndTripIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7595A922EBB703600FE7A45 /* EndTripIntent.swift */; };
+		B7595A962EBB703600FE7A45 /* FahrtenbuchShortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7595A932EBB703600FE7A45 /* FahrtenbuchShortcuts.swift */; };
+		B7595A972EBB703600FE7A45 /* StartTripIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7595A942EBB703600FE7A45 /* StartTripIntent.swift */; };
 		B7BF36402EB89C06009C1636 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF363F2EB89C06009C1636 /* ExportService.swift */; };
 		B7BF36422EB89C1E009C1636 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */; };
 		B7BF36452EB8A743009C1636 /* TripDebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */; };
@@ -60,6 +63,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B7595A922EBB703600FE7A45 /* EndTripIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EndTripIntent.swift; path = Intents/EndTripIntent.swift; sourceTree = "<group>"; };
+		B7595A932EBB703600FE7A45 /* FahrtenbuchShortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FahrtenbuchShortcuts.swift; path = Intents/FahrtenbuchShortcuts.swift; sourceTree = "<group>"; };
+		B7595A942EBB703600FE7A45 /* StartTripIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartTripIntent.swift; path = Intents/StartTripIntent.swift; sourceTree = "<group>"; };
 		B7BF363F2EB89C06009C1636 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
@@ -173,6 +179,9 @@
 		E800000000000200 /* HomeAssistentFahrtenbuch */ = {
 			isa = PBXGroup;
 			children = (
+				B7595A922EBB703600FE7A45 /* EndTripIntent.swift */,
+				B7595A932EBB703600FE7A45 /* FahrtenbuchShortcuts.swift */,
+				B7595A942EBB703600FE7A45 /* StartTripIntent.swift */,
 				E800000000000101 /* HomeAssistentFahrtenbuchApp.swift */,
 				E800000000000201 /* Views */,
 				E800000000000202 /* ViewModels */,
@@ -368,6 +377,9 @@
 				E80000000000000B /* HomeAssistantService.swift in Sources */,
 				E80000000000000C /* KeychainService.swift in Sources */,
 				E80000000000000D /* PersistenceController.swift in Sources */,
+				B7595A952EBB703600FE7A45 /* EndTripIntent.swift in Sources */,
+				B7595A962EBB703600FE7A45 /* FahrtenbuchShortcuts.swift in Sources */,
+				B7595A972EBB703600FE7A45 /* StartTripIntent.swift in Sources */,
 				B7BF36422EB89C1E009C1636 /* ActivityViewController.swift in Sources */,
 				E80000000000000E /* TripsViewModel.swift in Sources */,
 				B7BF36402EB89C06009C1636 /* ExportService.swift in Sources */,
