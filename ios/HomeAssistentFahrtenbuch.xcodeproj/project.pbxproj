@@ -24,6 +24,7 @@
 		E800000000000003 /* TripsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000103 /* TripsListView.swift */; };
 		E800000000000004 /* ActiveTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000104 /* ActiveTripView.swift */; };
 		E800000000000005 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000105 /* SettingsView.swift */; };
+		E800000000000012 /* EditTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000113 /* EditTripView.swift */; };
 		E800000000000006 /* TripRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000106 /* TripRowView.swift */; };
 		E800000000000007 /* MonthSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000107 /* MonthSectionHeader.swift */; };
 		E800000000000008 /* Trip+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = E800000000000108 /* Trip+CoreDataClass.swift */; };
@@ -82,6 +83,7 @@
 		E800000000000103 /* TripsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsListView.swift; sourceTree = "<group>"; };
 		E800000000000104 /* ActiveTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveTripView.swift; sourceTree = "<group>"; };
 		E800000000000105 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E800000000000113 /* EditTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTripView.swift; sourceTree = "<group>"; };
 		E800000000000106 /* TripRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRowView.swift; sourceTree = "<group>"; };
 		E800000000000107 /* MonthSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSectionHeader.swift; sourceTree = "<group>"; };
 		E800000000000108 /* Trip+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Trip+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 				E800000000000103 /* TripsListView.swift */,
 				E800000000000104 /* ActiveTripView.swift */,
 				E800000000000105 /* SettingsView.swift */,
+				E800000000000113 /* EditTripView.swift */,
 				E800000000000205 /* Components */,
 			);
 			path = Views;
@@ -366,6 +369,7 @@
 				E800000000000003 /* TripsListView.swift in Sources */,
 				E800000000000004 /* ActiveTripView.swift in Sources */,
 				E800000000000005 /* SettingsView.swift in Sources */,
+				E800000000000012 /* EditTripView.swift in Sources */,
 				E800000000000006 /* TripRowView.swift in Sources */,
 				B7BF36452EB8A743009C1636 /* TripDebugLogger.swift in Sources */,
 				B7BF36462EB8A743009C1636 /* DeepLinkHandler.swift in Sources */,

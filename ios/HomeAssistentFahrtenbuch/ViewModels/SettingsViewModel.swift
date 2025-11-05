@@ -15,7 +15,7 @@ class SettingsViewModel: ObservableObject {
     @Published var connectionTestResult: ConnectionTestResult?
 
     private let settings: AppSettings
-    private nonisolated(unsafe) let haService: HomeAssistantService
+    private let haService: HomeAssistantService
 
     enum ConnectionTestResult {
         case success(VehicleData)

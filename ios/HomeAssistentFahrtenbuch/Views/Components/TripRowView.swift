@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TripRowView: View {
 
-    let trip: Trip
+    @ObservedObject var trip: Trip
     let settings: AppSettings
 
     var body: some View {
@@ -42,7 +42,7 @@ struct TripRowView: View {
                     Image(systemName: "bolt.fill")
                         .foregroundStyle(.green)
 
-                    Text("\(Int(trip.startBatteryPercent))% → \(Int(trip.endBatteryPercent ?? 0))%")
+                    Text("\(Int(trip.startBatteryPercent))% → \(Int(trip.endBatteryPercent))%")
                         .font(.headline)
                 }
 

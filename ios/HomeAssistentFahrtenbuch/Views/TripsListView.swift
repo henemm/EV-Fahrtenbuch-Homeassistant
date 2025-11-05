@@ -27,12 +27,26 @@ struct TripsListView: View {
     @State private var showingDeepLinkAlert = false
     @State private var deepLinkAlertConfig: DeepLinkAlertConfig?
 
+    // Edit/Create Trip
+    @State private var showingEditTrip = false
+    @State private var tripToEdit: Trip?
+
+    // Collapsible Sections
+    @State private var expandedMonths: Set<String> = []
+
     init(settings: AppSettings = .shared) {
         self.settings = settings
         self._viewModel = StateObject(wrappedValue: TripsViewModel(
             context: PersistenceController.shared.container.viewContext,
             settings: settings
         ))
+
+        // Initial: Aktueller Monat expanded
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMMM yyyy"
+        formatter.locale = Locale(identifier: "de_DE")
+        let currentMonth = formatter.string(from: Date())
+        self._expandedMonths = State(initialValue: [currentMonth])
     }
 
     var body: some View {
@@ -63,6 +77,16 @@ struct TripsListView: View {
                 }
             }
             .navigationTitle("🚗 Fahrtenbuch")
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        tripToEdit = nil
+                        showingEditTrip = true
+                    } label: {
+                        Label("Fahrt erstellen", systemImage: "plus")
+                    }
+                }
+            }
             .alert("Fehler", isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button("OK") {
                     viewModel.errorMessage = nil
@@ -81,6 +105,9 @@ struct TripsListView: View {
                 if !shareItems.isEmpty {
                     ActivityViewController(activityItems: shareItems)
                 }
+            }
+            .sheet(isPresented: $showingEditTrip) {
+                EditTripView(viewModel: viewModel, trip: tripToEdit)
             }
             .onChange(of: deepLinkHandler.pendingAction) { _, newAction in
                 guard let action = newAction else { return }
@@ -262,24 +289,73 @@ struct TripsListView: View {
     private var tripsListByMonth: some View {
         ForEach(groupedTripsByMonth(), id: \.month) { group in
             VStack(spacing: 12) {
-                // Monats-Header mit Summary
+                // Monats-Header mit Summary (tappable für Expand/Collapse)
                 let summary = viewModel.monthlySummary(for: group.trips)
-                MonthSectionHeader(monthString: group.monthString, summary: summary) {
-                    exportMonth(trips: group.trips, summary: summary)
-                }
+                let isExpanded = expandedMonths.contains(group.monthString)
 
-                // Fahrten
-                ForEach(group.trips) { trip in
-                    TripRowView(
-                        trip: trip,
-                        settings: settings
-                    )
-                    .contextMenu {
-                        Button(role: .destructive) {
-                            viewModel.deleteTrip(trip)
-                        } label: {
-                            Label("Löschen", systemImage: "trash")
+                Button {
+                    withAnimation(.smooth) {
+                        if isExpanded {
+                            expandedMonths.remove(group.monthString)
+                        } else {
+                            expandedMonths.insert(group.monthString)
                         }
+                    }
+                } label: {
+                    HStack {
+                        Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+
+                        MonthSectionHeader(monthString: group.monthString, summary: summary) {
+                            exportMonth(trips: group.trips, summary: summary)
+                        }
+                    }
+                }
+                .buttonStyle(.plain)
+
+                // Fahrten (nur wenn expanded)
+                if isExpanded {
+                    ForEach(group.trips, id: \.id) { trip in
+                        TripRowView(
+                            trip: trip,
+                            settings: settings
+                        )
+                        .onTapGesture {
+                            tripToEdit = trip
+                            showingEditTrip = true
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                viewModel.deleteTrip(trip)
+                            } label: {
+                                Label("Löschen", systemImage: "trash")
+                            }
+                        }
+                        .swipeActions(edge: .leading) {
+                            Button {
+                                tripToEdit = trip
+                                showingEditTrip = true
+                            } label: {
+                                Label("Bearbeiten", systemImage: "pencil")
+                            }
+                            .tint(.blue)
+                        }
+                        .contextMenu {
+                            Button {
+                                tripToEdit = trip
+                                showingEditTrip = true
+                            } label: {
+                                Label("Bearbeiten", systemImage: "pencil")
+                            }
+
+                            Button(role: .destructive) {
+                                viewModel.deleteTrip(trip)
+                            } label: {
+                                Label("Löschen", systemImage: "trash")
+                            }
+                        }
+                        .transition(.opacity.combined(with: .scale))
                     }
                 }
             }

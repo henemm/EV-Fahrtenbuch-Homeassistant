@@ -209,6 +209,64 @@ class TripsViewModel: ObservableObject {
         isLoading = false
     }
 
+    // MARK: - Update Trip
+
+    func updateTrip(
+        _ trip: Trip,
+        startDate: Date,
+        endDate: Date,
+        startBatteryPercent: Double,
+        endBatteryPercent: Double,
+        startOdometer: Double,
+        endOdometer: Double
+    ) {
+        trip.startDate = startDate
+        trip.endDate = endDate
+        trip.startBatteryPercent = startBatteryPercent
+        trip.endBatteryPercent = endBatteryPercent
+        trip.startOdometer = startOdometer
+        trip.endOdometer = endOdometer
+
+        do {
+            try viewContext.save()
+
+            // Force refresh to ensure @FetchRequest sees changes
+            viewContext.refresh(trip, mergeChanges: false)
+            viewContext.processPendingChanges()
+        } catch {
+            errorMessage = "Fehler beim Speichern: \(error.localizedDescription)"
+        }
+    }
+
+    // MARK: - Create Manual Trip
+
+    func createManualTrip(
+        startDate: Date,
+        endDate: Date,
+        startBatteryPercent: Double,
+        endBatteryPercent: Double,
+        startOdometer: Double,
+        endOdometer: Double
+    ) {
+        let trip = Trip(context: viewContext)
+        trip.id = UUID()
+        trip.startDate = startDate
+        trip.endDate = endDate
+        trip.startBatteryPercent = startBatteryPercent
+        trip.endBatteryPercent = endBatteryPercent
+        trip.startOdometer = startOdometer
+        trip.endOdometer = endOdometer
+
+        do {
+            try viewContext.save()
+
+            // Force refresh to ensure @FetchRequest sees new trip
+            viewContext.processPendingChanges()
+        } catch {
+            errorMessage = "Fehler beim Erstellen: \(error.localizedDescription)"
+        }
+    }
+
     // MARK: - Delete Trip
 
     func deleteTrip(_ trip: Trip) {

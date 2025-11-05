@@ -10,10 +10,10 @@ import Foundation
 
 struct StartTripIntent: AppIntent {
 
-    nonisolated(unsafe) static var title: LocalizedStringResource = "Fahrt starten"
-    nonisolated(unsafe) static var description: IntentDescription = IntentDescription("Startet eine neue Fahrt im Fahrtenbuch")
+    static var title: LocalizedStringResource { "Fahrt starten" }
+    static var description: IntentDescription { IntentDescription("Startet eine neue Fahrt im Fahrtenbuch") }
 
-    nonisolated(unsafe) static var openAppWhenRun: Bool = true
+    static var openAppWhenRun: Bool { true }
 
     @MainActor
     func perform() async throws -> some IntentResult {
