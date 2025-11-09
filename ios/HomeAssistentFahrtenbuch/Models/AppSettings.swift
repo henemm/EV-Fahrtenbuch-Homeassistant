@@ -29,11 +29,6 @@ class AppSettings: ObservableObject {
     @AppStorage("demo_mode")
     var demoMode: Bool = false
 
-    // MARK: - Debug Logging (API Polling während Fahrt)
-
-    @AppStorage("debug_logging_enabled")
-    var debugLoggingEnabled: Bool = false
-
     // MARK: - Vehicle Settings
 
     @AppStorage("vehicle_name")

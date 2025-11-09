@@ -11,10 +11,6 @@ struct SettingsView: View {
 
     @StateObject private var viewModel = SettingsViewModel()
     @ObservedObject private var settings = AppSettings.shared
-    @ObservedObject private var debugLogger = TripDebugLogger.shared
-
-    @State private var showingDebugExport = false
-    @State private var debugExportURL: URL?
 
     var body: some View {
         NavigationStack {
@@ -38,48 +34,6 @@ struct SettingsView: View {
                     Text("Testing")
                 } footer: {
                     Text("Im Demo-Modus werden keine echten API-Calls durchgeführt. Ideal für App Store Review oder Screenshots.")
-                        .font(.caption)
-                }
-
-                // Debug-Logging
-                Section {
-                    Toggle(isOn: $settings.debugLoggingEnabled) {
-                        Label("API-Polling während Fahrt", systemImage: "ladybug")
-                    }
-                    .tint(.orange)
-
-                    if settings.debugLoggingEnabled {
-                        HStack {
-                            Image(systemName: "info.circle.fill")
-                                .foregroundStyle(.orange)
-                            Text("Pollt API alle 30s während Fahrt")
-                                .font(.subheadline)
-                        }
-                    }
-
-                    if debugLogger.isLogging {
-                        HStack {
-                            Image(systemName: "record.circle.fill")
-                                .foregroundStyle(.red)
-                            Text("Logging aktiv: \(debugLogger.entries.count) Einträge")
-                                .font(.subheadline)
-                        }
-                    }
-
-                    if !debugLogger.entries.isEmpty {
-                        Button {
-                            debugExportURL = debugLogger.exportLog()
-                            if debugExportURL != nil {
-                                showingDebugExport = true
-                            }
-                        } label: {
-                            Label("Debug-Log exportieren (\(debugLogger.entries.count))", systemImage: "square.and.arrow.up")
-                        }
-                    }
-                } header: {
-                    Text("Developer")
-                } footer: {
-                    Text("Hilfreich um zu testen, wie oft sich API-Werte während der Fahrt aktualisieren. Log wird als CSV exportiert.")
                         .font(.caption)
                 }
 
@@ -225,11 +179,6 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("Einstellungen")
-            .sheet(isPresented: $showingDebugExport) {
-                if let url = debugExportURL {
-                    ActivityViewController(activityItems: [url])
-                }
-            }
         }
     }
 }

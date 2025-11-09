@@ -12,7 +12,6 @@
 		B7595A972EBB703600FE7A45 /* StartTripIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7595A942EBB703600FE7A45 /* StartTripIntent.swift */; };
 		B7BF36402EB89C06009C1636 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF363F2EB89C06009C1636 /* ExportService.swift */; };
 		B7BF36422EB89C1E009C1636 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */; };
-		B7BF36452EB8A743009C1636 /* TripDebugLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */; };
 		B7BF36462EB8A743009C1636 /* DeepLinkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */; };
 		B7BF364D2EB8AC56009C1636 /* WidgetDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BF364C2EB8AC56009C1636 /* WidgetDataService.swift */; };
 		B7BF36552EB8AC9E009C1636 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7BF36542EB8AC9E009C1636 /* WidgetKit.framework */; };
@@ -70,7 +69,6 @@
 		B7BF363F2EB89C06009C1636 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		B7BF36412EB89C1E009C1636 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkHandler.swift; sourceTree = "<group>"; };
-		B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDebugLogger.swift; sourceTree = "<group>"; };
 		B7BF364C2EB8AC56009C1636 /* WidgetDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetDataService.swift; sourceTree = "<group>"; };
 		B7BF36522EB8AC9E009C1636 /* FahrtenbuchWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FahrtenbuchWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7BF36542EB8AC9E009C1636 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -234,7 +232,6 @@
 				B7BF36942EB8C5EE009C1636 /* LiveActivityManager.swift */,
 				B7BF364C2EB8AC56009C1636 /* WidgetDataService.swift */,
 				B7BF36432EB8A743009C1636 /* DeepLinkHandler.swift */,
-				B7BF36442EB8A743009C1636 /* TripDebugLogger.swift */,
 				E80000000000010B /* HomeAssistantService.swift */,
 				E80000000000010C /* KeychainService.swift */,
 				E80000000000010D /* PersistenceController.swift */,
@@ -371,7 +368,6 @@
 				E800000000000005 /* SettingsView.swift in Sources */,
 				E800000000000012 /* EditTripView.swift in Sources */,
 				E800000000000006 /* TripRowView.swift in Sources */,
-				B7BF36452EB8A743009C1636 /* TripDebugLogger.swift in Sources */,
 				B7BF36462EB8A743009C1636 /* DeepLinkHandler.swift in Sources */,
 				E800000000000007 /* MonthSectionHeader.swift in Sources */,
 				E800000000000008 /* Trip+CoreDataClass.swift in Sources */,

@@ -19,7 +19,6 @@ class TripsViewModel: ObservableObject {
     private let viewContext: NSManagedObjectContext
     private let settings: AppSettings
     private let haService: HomeAssistantService
-    private let debugLogger: TripDebugLogger
     private let widgetService: WidgetDataService
     private var liveActivityManager: AnyObject?  // Type-erased LiveActivityManager for iOS 18+
 
@@ -27,13 +26,11 @@ class TripsViewModel: ObservableObject {
         context: NSManagedObjectContext,
         settings: AppSettings = .shared,
         haService: HomeAssistantService = .shared,
-        debugLogger: TripDebugLogger = .shared,
         widgetService: WidgetDataService = .shared
     ) {
         self.viewContext = context
         self.settings = settings
         self.haService = haService
-        self.debugLogger = debugLogger
         self.widgetService = widgetService
 
         print("🔍 TripsViewModel.init: iOS Version Check...")
@@ -118,11 +115,6 @@ class TripsViewModel: ObservableObject {
 
             activeTrip = trip
 
-            // Debug-Logging starten (falls aktiviert)
-            if settings.debugLoggingEnabled {
-                debugLogger.startLogging(haService: haService, settings: settings)
-            }
-
             // Widget aktualisieren
             widgetService.updateWidget(with: trip)
 
@@ -185,11 +177,6 @@ class TripsViewModel: ObservableObject {
             try viewContext.save()
 
             activeTrip = nil
-
-            // Debug-Logging stoppen (falls aktiv)
-            if debugLogger.isLogging {
-                debugLogger.stopLogging()
-            }
 
             // Widget aktualisieren (keine aktive Fahrt mehr)
             widgetService.updateWidget(with: nil)
