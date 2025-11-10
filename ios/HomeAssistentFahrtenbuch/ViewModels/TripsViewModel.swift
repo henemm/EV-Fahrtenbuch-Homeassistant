@@ -79,6 +79,39 @@ class TripsViewModel: ObservableObject {
         }
     }
 
+    // MARK: - Default Battery Values (Offline-Modus)
+
+    /// Gibt sinnvollen Default-Wert für Batterie% zurück
+    func getDefaultBatteryPercent(for context: ManualInputContext) -> Int {
+        switch context {
+        case .startTrip:
+            // Letzter endBatteryPercent der letzten Fahrt
+            let request = PersistenceController.fetchCompletedTrips()
+            request.fetchLimit = 1
+
+            do {
+                let trips = try viewContext.fetch(request)
+                if let lastTrip = trips.first {
+                    return Int(lastTrip.endBatteryPercent)
+                }
+            } catch {
+                print("Fehler beim Laden der letzten Fahrt: \(error)")
+            }
+
+            // Fallback
+            return 80
+
+        case .endTrip:
+            // startBatteryPercent der aktiven Fahrt
+            if let activeTrip = activeTrip {
+                return Int(activeTrip.startBatteryPercent)
+            }
+
+            // Fallback
+            return 60
+        }
+    }
+
     // MARK: - Start Trip
 
     func startTrip() async {

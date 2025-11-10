@@ -32,7 +32,7 @@ struct TripsListView: View {
     @State private var tripToEdit: Trip?
 
     // Offline-Modus
-    @State private var manualBatteryInput = ""
+    @State private var manualBatteryPercent: Int = 80
 
     // Collapsible Sections
     @State private var expandedMonths: Set<String> = []
@@ -100,33 +100,33 @@ struct TripsListView: View {
                 }
             }
             .alert("Keine Verbindung", isPresented: $viewModel.showManualInputAlert) {
-                TextField("Batterie %", text: $manualBatteryInput)
-                    .keyboardType(.decimalPad)
-
-                Button("Abbrechen", role: .cancel) {
-                    manualBatteryInput = ""
-                }
+                Button("Abbrechen", role: .cancel) {}
 
                 Button(viewModel.manualInputContext == .startTrip ? "Fahrt starten" : "Fahrt beenden") {
-                    guard let battery = Double(manualBatteryInput),
-                          battery >= 0 && battery <= 100 else {
-                        // Validation fehlgeschlagen
-                        viewModel.errorMessage = "Batterie muss zwischen 0 und 100% sein"
-                        manualBatteryInput = ""
-                        return
-                    }
-
                     if viewModel.manualInputContext == .startTrip {
-                        viewModel.startTripManually(batteryPercent: battery)
+                        viewModel.startTripManually(batteryPercent: Double(manualBatteryPercent))
                     } else {
-                        viewModel.endTripManually(batteryPercent: battery)
+                        viewModel.endTripManually(batteryPercent: Double(manualBatteryPercent))
                     }
-
-                    manualBatteryInput = ""
                 }
-                .disabled(manualBatteryInput.isEmpty)
             } message: {
-                Text("Bitte gib den aktuellen Batteriestand ein:")
+                VStack {
+                    Text("Bitte gib den aktuellen Batteriestand ein:")
+
+                    Picker("Batterie %", selection: $manualBatteryPercent) {
+                        ForEach(0...100, id: \.self) { percent in
+                            Text("\(percent)%").tag(percent)
+                        }
+                    }
+                    .pickerStyle(.wheel)
+                    .frame(height: 150)
+                }
+            }
+            .onChange(of: viewModel.showManualInputAlert) { _, isShowing in
+                if isShowing, let context = viewModel.manualInputContext {
+                    // Setze Default-Wert basierend auf Kontext
+                    manualBatteryPercent = viewModel.getDefaultBatteryPercent(for: context)
+                }
             }
             .sheet(isPresented: $showingActiveTripView) {
                 if let activeTrip = viewModel.activeTrip {
