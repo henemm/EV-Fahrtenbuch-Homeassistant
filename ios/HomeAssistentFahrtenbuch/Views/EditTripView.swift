@@ -185,10 +185,9 @@ struct EditTripView: View {
     // MARK: - Validation
 
     private var isValid: Bool {
+        // Batterie ist PFLICHT
         guard let startBattery = Double(startBatteryPercent),
-              let endBattery = Double(endBatteryPercent),
-              let startKm = Double(startOdometer),
-              let endKm = Double(endOdometer) else {
+              let endBattery = Double(endBatteryPercent) else {
             return false
         }
 
@@ -199,8 +198,15 @@ struct EditTripView: View {
         guard startBattery >= 0 && startBattery <= 100 else { return false }
         guard endBattery >= 0 && endBattery <= 100 else { return false }
 
-        // Odometer-Validierung
-        guard startKm > 0 && endKm > startKm else { return false }
+        // Odometer-Validierung (OPTIONAL - nur wenn beide angegeben)
+        if !startOdometer.isEmpty && !endOdometer.isEmpty {
+            guard let startKm = Double(startOdometer),
+                  let endKm = Double(endOdometer),
+                  startKm >= 0,
+                  endKm > startKm else {
+                return false
+            }
+        }
 
         return true
     }
@@ -216,9 +222,7 @@ struct EditTripView: View {
 
     private func calculatePreview() -> PreviewData? {
         guard let startBattery = Double(startBatteryPercent),
-              let endBattery = Double(endBatteryPercent),
-              let startKm = Double(startOdometer),
-              let endKm = Double(endOdometer) else {
+              let endBattery = Double(endBatteryPercent) else {
             return nil
         }
 
@@ -230,8 +234,14 @@ struct EditTripView: View {
         let minutes = Int((duration.truncatingRemainder(dividingBy: 3600)) / 60)
         let durationString = hours > 0 ? "\(hours)h \(minutes)m" : "\(minutes)m"
 
-        // Strecke
-        let distance = endKm - startKm
+        // Strecke (OPTIONAL - nur wenn angegeben)
+        let distance: Double
+        if let startKm = Double(startOdometer),
+           let endKm = Double(endOdometer) {
+            distance = endKm - startKm
+        } else {
+            distance = 0
+        }
 
         // Batterie
         let batteryUsed = startBattery - endBattery
@@ -258,13 +268,15 @@ struct EditTripView: View {
         }
 
         guard let startBattery = Double(startBatteryPercent),
-              let endBattery = Double(endBatteryPercent),
-              let startKm = Double(startOdometer),
-              let endKm = Double(endOdometer) else {
+              let endBattery = Double(endBatteryPercent) else {
             errorMessage = "Ungültige Zahlenwerte"
             showingError = true
             return
         }
+
+        // km-Stand ist optional - leer = 0
+        let startKm = Double(startOdometer) ?? 0.0
+        let endKm = Double(endOdometer) ?? 0.0
 
         if isEditMode, let trip = trip {
             // Update existing trip

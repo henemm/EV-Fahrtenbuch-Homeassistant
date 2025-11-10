@@ -16,6 +16,15 @@ class TripsViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
 
+    // Offline-Modus
+    @Published var showManualInputAlert = false
+    @Published var manualInputContext: ManualInputContext?
+
+    enum ManualInputContext {
+        case startTrip
+        case endTrip
+    }
+
     private let viewContext: NSManagedObjectContext
     private let settings: AppSettings
     private let haService: HomeAssistantService
@@ -134,10 +143,11 @@ class TripsViewModel: ObservableObject {
                 print("❌ iOS Version Check failed")
             }
 
-        } catch let error as HomeAssistantError {
-            errorMessage = error.localizedDescription
         } catch {
-            errorMessage = "Unbekannter Fehler: \(error.localizedDescription)"
+            // Offline oder API-Fehler → Manuelle Eingabe
+            errorMessage = nil
+            manualInputContext = .startTrip
+            showManualInputAlert = true
         }
 
         isLoading = false
@@ -187,10 +197,11 @@ class TripsViewModel: ObservableObject {
                 manager.endActivity()
             }
 
-        } catch let error as HomeAssistantError {
-            errorMessage = error.localizedDescription
         } catch {
-            errorMessage = "Unbekannter Fehler: \(error.localizedDescription)"
+            // Offline oder API-Fehler → Manuelle Eingabe
+            errorMessage = nil
+            manualInputContext = .endTrip
+            showManualInputAlert = true
         }
 
         isLoading = false
@@ -263,6 +274,61 @@ class TripsViewModel: ObservableObject {
             try viewContext.save()
         } catch {
             errorMessage = "Fehler beim Löschen: \(error.localizedDescription)"
+        }
+    }
+
+    // MARK: - Manual Trip (Offline-Modus)
+
+    /// Startet Fahrt manuell (bei Offline/API-Fehler)
+    func startTripManually(batteryPercent: Double) {
+        let trip = Trip(context: viewContext)
+        trip.id = UUID()
+        trip.startDate = Date()
+        trip.startBatteryPercent = batteryPercent
+        trip.startOdometer = 0  // Kein km-Stand bei Offline
+        trip.endDate = nil
+        trip.endBatteryPercent = 0
+        trip.endOdometer = 0
+
+        do {
+            try viewContext.save()
+            activeTrip = trip
+
+            // Widget aktualisieren
+            widgetService.updateWidget(with: trip)
+
+            // LiveActivity starten (iOS 16.1+)
+            if #available(iOS 16.1, *),
+               let manager = liveActivityManager as? LiveActivityManager {
+                manager.startActivity(for: trip)
+            }
+        } catch {
+            errorMessage = "Fehler beim Speichern: \(error.localizedDescription)"
+        }
+    }
+
+    /// Beendet Fahrt manuell (bei Offline/API-Fehler)
+    func endTripManually(batteryPercent: Double) {
+        guard let trip = activeTrip else { return }
+
+        trip.endDate = Date()
+        trip.endBatteryPercent = batteryPercent
+        trip.endOdometer = trip.startOdometer  // Kein Delta bei Offline
+
+        do {
+            try viewContext.save()
+            activeTrip = nil
+
+            // Widget aktualisieren
+            widgetService.updateWidget(with: nil)
+
+            // LiveActivity beenden (iOS 16.1+)
+            if #available(iOS 16.1, *),
+               let manager = liveActivityManager as? LiveActivityManager {
+                manager.endActivity()
+            }
+        } catch {
+            errorMessage = "Fehler beim Speichern: \(error.localizedDescription)"
         }
     }
 

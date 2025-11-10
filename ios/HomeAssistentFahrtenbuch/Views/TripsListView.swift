@@ -31,6 +31,9 @@ struct TripsListView: View {
     @State private var showingEditTrip = false
     @State private var tripToEdit: Trip?
 
+    // Offline-Modus
+    @State private var manualBatteryInput = ""
+
     // Collapsible Sections
     @State private var expandedMonths: Set<String> = []
 
@@ -95,6 +98,35 @@ struct TripsListView: View {
                 if let error = viewModel.errorMessage {
                     Text(error)
                 }
+            }
+            .alert("Keine Verbindung", isPresented: $viewModel.showManualInputAlert) {
+                TextField("Batterie %", text: $manualBatteryInput)
+                    .keyboardType(.decimalPad)
+
+                Button("Abbrechen", role: .cancel) {
+                    manualBatteryInput = ""
+                }
+
+                Button(viewModel.manualInputContext == .startTrip ? "Fahrt starten" : "Fahrt beenden") {
+                    guard let battery = Double(manualBatteryInput),
+                          battery >= 0 && battery <= 100 else {
+                        // Validation fehlgeschlagen
+                        viewModel.errorMessage = "Batterie muss zwischen 0 und 100% sein"
+                        manualBatteryInput = ""
+                        return
+                    }
+
+                    if viewModel.manualInputContext == .startTrip {
+                        viewModel.startTripManually(batteryPercent: battery)
+                    } else {
+                        viewModel.endTripManually(batteryPercent: battery)
+                    }
+
+                    manualBatteryInput = ""
+                }
+                .disabled(manualBatteryInput.isEmpty)
+            } message: {
+                Text("Bitte gib den aktuellen Batteriestand ein:")
             }
             .sheet(isPresented: $showingActiveTripView) {
                 if let activeTrip = viewModel.activeTrip {
