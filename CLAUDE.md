@@ -43,6 +43,13 @@
 App → Home Assistant Cloud API → Škoda Connect → Enyaq
 ```
 
+**WICHTIG - Data Latency Limitation:**
+- **Škoda Connect aktualisiert Daten nur alle 5-10 Minuten** (nicht real-time)
+- Beweis durch Debug-Logging (v1.0.5): Werte springen in Batches, nicht kontinuierlich
+- Konsequenz: Start/Stop Button Konzept ist optimal, kontinuierliches Polling sinnlos
+- LiveActivity verwendet nur System-Timer (keine API-Calls)
+- **Offline-Modus implementiert (v1.0.6):** User gibt Batterie% manuell ein wenn kein Netz
+
 ---
 
 ## Build Commands
