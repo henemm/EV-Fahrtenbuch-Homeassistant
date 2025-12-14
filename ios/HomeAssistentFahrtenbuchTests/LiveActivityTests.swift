@@ -124,7 +124,7 @@ final class LiveActivityTests: XCTestCase {
         let compact = tripInfo.durationCompact
 
         // Then
-        XCTAssertEqual(compact, "1h 15m")
+        XCTAssertEqual(compact, "1h 15min")
     }
 
     func testTripInfoCompactDurationWithoutHours() throws {
@@ -142,7 +142,7 @@ final class LiveActivityTests: XCTestCase {
         let compact = tripInfo.durationCompact
 
         // Then
-        XCTAssertEqual(compact, "15m")
+        XCTAssertEqual(compact, "15min")
     }
 
     func testTripInfoCompactDurationLessThanOneMinute() throws {
