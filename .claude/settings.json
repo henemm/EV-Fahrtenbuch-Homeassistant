@@ -5,7 +5,8 @@
         "matcher": "Write|Edit",
         "hooks": [
           ".claude/hooks/workflow_gate.py",
-          ".claude/hooks/spec_enforcement.py"
+          ".claude/hooks/spec_enforcement.py",
+          ".claude/hooks/test_first_enforcement.py"
         ]
       },
       {
