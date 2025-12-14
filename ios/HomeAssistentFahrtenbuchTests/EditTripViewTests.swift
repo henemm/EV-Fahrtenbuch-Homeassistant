@@ -10,6 +10,7 @@ import XCTest
 import CoreData
 @testable import HomeAssistentFahrtenbuch
 
+@MainActor
 final class EditTripViewTests: XCTestCase {
 
     var viewContext: NSManagedObjectContext!

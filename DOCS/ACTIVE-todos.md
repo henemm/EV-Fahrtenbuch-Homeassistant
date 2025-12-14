@@ -16,24 +16,11 @@
 - Test: Fahrt starten, Lock Screen beobachten
 - Status: OFFEN (seit v1.0.3, mehrere Loesungsversuche fehlgeschlagen)
 
-**Bug 2: Edit Trip erzeugt neuen Eintrag statt zu aktualisieren**
-- Location: TripsListView.swift:141-143, 356-358
-- Problem: Tap auf bestehenden Trip oeffnet "Fahrt erstellen" statt "Fahrt bearbeiten"
-- Expected: Bestehender Trip wird editiert, nicht neu erstellt
-- Root Cause: `.sheet(isPresented:)` captured `tripToEdit` bevor State-Update propagiert
-- Fix: Umstellen auf `.sheet(item:)` fuer korrektes Item-Binding
-- Unit Test: EditTripViewTests.swift (4 Tests geschrieben)
-- Status: TESTS GESCHRIEBEN - wartet auf Fix
+_Keine offenen Bugs (ausser Bug 1 - Lock Screen Timer)_
 
-### UI Test Checkliste (manuell)
+### UI Test Checkliste - Bug 2 Fix verifizieren (manuell)
 
-**Vor dem Fix (Bug reproduzieren):**
-- [ ] App starten
-- [ ] Bestehenden Trip in Liste antippen
-- [ ] **BUG:** Titel zeigt "Fahrt erstellen" statt "Fahrt bearbeiten"
-- [ ] **BUG:** Formular zeigt Default-Werte statt Trip-Werte
-
-**Nach dem Fix (verifizieren):**
+**Bitte testen:**
 - [ ] App starten
 - [ ] Bestehenden Trip in Liste antippen
 - [ ] Titel zeigt "Fahrt bearbeiten"
@@ -52,6 +39,11 @@ _Keine offenen Tasks_
 ---
 
 ## Zuletzt erledigt
+
+**Bug 2 Fix:** Edit Trip verwendet jetzt `.sheet(item:)` statt `.sheet(isPresented:)`
+- Root Cause: State timing issue - tripToEdit wurde gesetzt aber sheet content wurde vor Propagierung evaluiert
+- Fix: Separate Sheets fuer Create (isPresented) und Edit (item:)
+- Unit Tests: 4 Tests in EditTripViewTests.swift (alle gruen)
 
 **v1.0.5:** Picker Wheel fuer Offline-Batterie-Eingabe mit intelligentem Default
 **v1.0.4:** Core Data Reactivity Fix, ForEach Identity Fix, Swift 6 Concurrency

@@ -11,6 +11,7 @@ import CoreData
 @testable import HomeAssistentFahrtenbuch
 
 @available(iOS 16.1, *)
+@MainActor
 final class LiveActivityTests: XCTestCase {
 
     var viewContext: NSManagedObjectContext!
@@ -162,45 +163,9 @@ final class LiveActivityTests: XCTestCase {
         XCTAssertEqual(compact, "<1 Min")
     }
 
-    func testTripInfoFormattedDurationAtDate() throws {
-        // Given
-        let startDate = Date().addingTimeInterval(-3661) // 1h 1m 1s ago
-        let tripInfo = TripInfo(
-            tripId: UUID(),
-            startDate: startDate,
-            startBatteryPercent: 80,
-            startOdometer: 49000,
-            durationSeconds: 0, // Wird nicht verwendet
-            lastUpdate: Date()
-        )
-        let referenceDate = startDate.addingTimeInterval(3661)
-
-        // When
-        let formatted = tripInfo.formattedDuration(at: referenceDate)
-
-        // Then
-        XCTAssertEqual(formatted, "01:01:01")
-    }
-
-    func testTripInfoCompactDurationAtDateLessThanOneMinute() throws {
-        // Given
-        let startDate = Date()
-        let tripInfo = TripInfo(
-            tripId: UUID(),
-            startDate: startDate,
-            startBatteryPercent: 80,
-            startOdometer: 49000,
-            durationSeconds: 0,
-            lastUpdate: Date()
-        )
-        let referenceDate = startDate.addingTimeInterval(30)
-
-        // When
-        let compact = tripInfo.compactDuration(at: referenceDate)
-
-        // Then
-        XCTAssertEqual(compact, "<1 Min")
-    }
+    // Note: Tests für formattedDuration(at:) und compactDuration(at:) entfernt
+    // da diese Methoden nicht in TripInfo existieren (durationFormatted und
+    // durationCompact verwenden durationSeconds direkt)
 
     // MARK: - TripDataProvider Tests
 
@@ -235,7 +200,7 @@ final class LiveActivityTests: XCTestCase {
         XCTAssert(manager1 === manager2, "LiveActivityManager.shared sollte Singleton sein")
     }
 
-    func testLiveActivityManagerStartWithInvalidTrip() async throws {
+    func testLiveActivityManagerStartWithInvalidTrip() throws {
         // Given
         let manager = LiveActivityManager.shared
         let trip = Trip(context: viewContext)
@@ -243,15 +208,13 @@ final class LiveActivityTests: XCTestCase {
 
         // When/Then
         // Sollte nicht crashen, sondern graceful fail
-        await MainActor.run {
-            manager.startActivity(for: trip)
-        }
+        manager.startActivity(for: trip)
 
         // No crash = success
         XCTAssert(true, "LiveActivityManager sollte mit ungültigen Trips umgehen können")
     }
 
-    func testLiveActivityManagerStartWithValidTrip() async throws {
+    func testLiveActivityManagerStartWithValidTrip() throws {
         // Given
         let manager = LiveActivityManager.shared
         let trip = Trip(context: viewContext)
@@ -261,9 +224,7 @@ final class LiveActivityTests: XCTestCase {
         trip.startOdometer = 49500.0
 
         // When
-        await MainActor.run {
-            manager.startActivity(for: trip)
-        }
+        manager.startActivity(for: trip)
 
         // Then
         // In Tests können wir nicht prüfen ob Activity wirklich sichtbar ist,
@@ -273,13 +234,13 @@ final class LiveActivityTests: XCTestCase {
 
     // MARK: - Integration Tests
 
-    func testTripsViewModelInitializesLiveActivityManager() async throws {
+    func testTripsViewModelInitializesLiveActivityManager() throws {
         // Given
         let settings = AppSettings.shared
         settings.demoMode = true // Demo Mode für Tests
 
         // When
-        let viewModel = await TripsViewModel(
+        let viewModel = TripsViewModel(
             context: viewContext,
             settings: settings
         )

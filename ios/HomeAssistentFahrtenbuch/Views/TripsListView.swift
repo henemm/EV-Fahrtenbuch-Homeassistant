@@ -28,7 +28,9 @@ struct TripsListView: View {
     @State private var deepLinkAlertConfig: DeepLinkAlertConfig?
 
     // Edit/Create Trip
-    @State private var showingEditTrip = false
+    // Bug 2 Fix: Verwende separate States für Create vs Edit
+    // .sheet(item:) für Edit, .sheet(isPresented:) für Create
+    @State private var showingCreateTrip = false
     @State private var tripToEdit: Trip?
 
     // Offline-Modus
@@ -83,8 +85,7 @@ struct TripsListView: View {
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
-                        tripToEdit = nil
-                        showingEditTrip = true
+                        showingCreateTrip = true
                     } label: {
                         Label("Fahrt erstellen", systemImage: "plus")
                     }
@@ -138,8 +139,14 @@ struct TripsListView: View {
                     ActivityViewController(activityItems: shareItems)
                 }
             }
-            .sheet(isPresented: $showingEditTrip) {
-                EditTripView(viewModel: viewModel, trip: tripToEdit)
+            // Bug 2 Fix: Separate Sheets für Create vs Edit
+            // Create: .sheet(isPresented:) - trip ist immer nil
+            .sheet(isPresented: $showingCreateTrip) {
+                EditTripView(viewModel: viewModel, trip: nil)
+            }
+            // Edit: .sheet(item:) - garantiert korrektes Trip-Binding
+            .sheet(item: $tripToEdit) { trip in
+                EditTripView(viewModel: viewModel, trip: trip)
             }
             .onChange(of: deepLinkHandler.pendingAction) { _, newAction in
                 guard let action = newAction else { return }
@@ -354,8 +361,8 @@ struct TripsListView: View {
                             settings: settings
                         )
                         .onTapGesture {
+                            // Bug 2 Fix: Nur tripToEdit setzen, Sheet öffnet automatisch via .sheet(item:)
                             tripToEdit = trip
-                            showingEditTrip = true
                         }
                         .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                             Button(role: .destructive) {
@@ -367,7 +374,6 @@ struct TripsListView: View {
                         .swipeActions(edge: .leading) {
                             Button {
                                 tripToEdit = trip
-                                showingEditTrip = true
                             } label: {
                                 Label("Bearbeiten", systemImage: "pencil")
                             }
@@ -376,7 +382,6 @@ struct TripsListView: View {
                         .contextMenu {
                             Button {
                                 tripToEdit = trip
-                                showingEditTrip = true
                             } label: {
                                 Label("Bearbeiten", systemImage: "pencil")
                             }

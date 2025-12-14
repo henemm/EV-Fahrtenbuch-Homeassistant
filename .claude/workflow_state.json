@@ -1,6 +1,14 @@
 {
-  "current_phase": "idle",
-  "current_spec": null,
-  "history": [],
-  "last_updated": "2024-12-13T15:00:00Z"
+  "current_phase": "implemented",
+  "current_spec": "bug-2-edit-trip",
+  "test_written": true,
+  "history": [
+    {
+      "phase": "implemented",
+      "spec": "bug-2-edit-trip",
+      "timestamp": "2025-12-14T08:00:00Z",
+      "notes": "Fix: .sheet(item:) statt .sheet(isPresented:)"
+    }
+  ],
+  "last_updated": "2025-12-14T08:00:00Z"
 }
