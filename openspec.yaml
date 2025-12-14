@@ -1,0 +1,76 @@
+# OpenSpec Framework Configuration - Fahrtenbuch
+# Enforces spec-driven development workflow
+
+project:
+  name: "Fahrtenbuch"
+  base_path: "/Users/hem/Documents/opt/Fahrtenbuch-Enyaq-HomeAssistant"
+
+workflow:
+  phases:
+    - idle
+    - analyse_done
+    - spec_written
+    - spec_approved
+    - implemented
+    - validated
+  approval_phrases:
+    - "approved"
+    - "freigabe"
+    - "spec ok"
+    - "lgtm"
+    - "looks good"
+    - "genehmigt"
+
+# Files that require spec before modification
+protected_paths:
+  - pattern: "ios/HomeAssistentFahrtenbuch/.*\\.swift$"
+    spec_type: "features"
+  - pattern: "FahrtenbuchWidget/.*\\.swift$"
+    spec_type: "features"
+
+# Files always allowed without spec
+always_allowed:
+  - "\\.claude/"
+  - "\\.agent-os/"
+  - "openspec/"
+  - "DOCS/"
+  - "prototype/"
+  - "\\.md$"
+  - "\\.gitignore"
+  - "\\.json$"
+  - "\\.yaml$"
+  - "\\.yml$"
+  - "README"
+  - "project\\.pbxproj$"
+  - "Info\\.plist$"
+
+specs:
+  base_path: "openspec/specs"
+  template_file: "openspec/specs/_template.md"
+  categories:
+    features:
+      pattern: "^(class|struct|enum)\\s+(\\w+)"
+      path: "features"
+    integrations:
+      pattern: "Home.*Assistant|Core.*Data"
+      path: "integrations"
+
+claude_md:
+  max_lines: 300
+  forbidden_patterns:
+    - pattern: "### \\[\\d{4}-\\d{2}-\\d{2}.*\\] Attempt #\\d+"
+      message: "Solution Attempts belong in .agent-os/standards/project/lessons-learned.md"
+
+modules:
+  core:
+    workflow_gate: true
+    spec_enforcement: true
+    claude_md_protection: true
+    notification: true
+  generic:
+    bug_fix_blocker: false
+    test_before_commit: false
+    scope_drift_guard: false
+
+hooks:
+  timeout: 5

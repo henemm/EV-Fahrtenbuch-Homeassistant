@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          ".claude/hooks/workflow_gate.py",
+          ".claude/hooks/spec_enforcement.py"
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          ".claude/hooks/claude_md_protection.py"
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          ".claude/hooks/workflow_state_updater.py"
+        ]
+      }
+    ],
+    "Stop": [
+      ".claude/hooks/notify_sound.py"
+    ]
+  }
+}
