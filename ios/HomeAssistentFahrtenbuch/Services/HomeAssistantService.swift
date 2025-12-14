@@ -56,8 +56,10 @@ class HomeAssistantService {
 
     private init() {
         let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 10
-        config.timeoutIntervalForResource = 30
+        // Schneller Timeout für bessere UX bei schlechter Verbindung
+        // User sieht Offline-Dialog nach max 4 Sekunden statt 10
+        config.timeoutIntervalForRequest = 4
+        config.timeoutIntervalForResource = 8
         self.urlSession = URLSession(configuration: config)
     }
 
