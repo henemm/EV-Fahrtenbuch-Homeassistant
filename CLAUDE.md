@@ -16,7 +16,7 @@
 - Siri Shortcuts integration
 - Offline mode for manual battery input
 
-**Current Version:** 1.0.5
+**Current Version:** 1.0.7
 
 **Development Target:**
 - **Xcode 16 / Swift 6**
@@ -41,6 +41,8 @@ All coding standards and lessons learned are in:
 Specialized agents with injected standards:
 - `bug-investigator.md` - Bug analysis (Analysis-First)
 - `feature-planner.md` - Feature planning (Spec-First)
+- `spec-writer.md` - Automated spec creation from template
+- `spec-validator.md` - Spec quality and completeness checks
 - `localizer.md` - Localization
 - `test-runner.md` - Unit test execution
 
@@ -59,12 +61,22 @@ Specialized agents with injected standards:
 
 ## Slash Commands
 
+### Workflow-Phasen (nummeriert)
+
+| Phase | Command | Agent | Purpose |
+|-------|---------|-------|---------|
+| 1 | `/1-analyse [query]` | - | Gruendliche Analyse VOR Code-Aenderungen |
+| 2 | `/2-spec [entity]` | spec-writer | Spec aus Template erstellen |
+| 3 | `/3-validate [name]` | spec-validator | Spec auf Vollstaendigkeit pruefen |
+
+### Task-Commands
+
 | Command | Agent | Purpose |
 |---------|-------|---------|
-| `/bug [desc]` | bug-investigator | Analyze bug with Analysis-First |
-| `/feature [name]` | feature-planner | Plan feature with OpenSpec |
-| `/test` | test-runner | Run unit tests |
-| `/localize` | localizer | Check/add localizations |
+| `/bug [desc]` | bug-investigator | Bug analysieren (nutzt intern /1-analyse) |
+| `/feature [name]` | feature-planner | Feature planen (nutzt intern /1-analyse) |
+| `/test` | test-runner | Unit Tests ausfuehren |
+| `/localize` | localizer | Lokalisierung pruefen
 
 ---
 
@@ -183,7 +195,7 @@ Fahrtenbuch-Enyaq-HomeAssistant/
 
 ## Quick Reference
 
-**Version:** 1.0.5
+**Version:** 1.0.7
 
 **Main Schemes:**
 - "HomeAssistentFahrtenbuch" - iOS App
